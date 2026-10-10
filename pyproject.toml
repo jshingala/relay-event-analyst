@@ -31,6 +31,7 @@ rea-synth = "rea.synth.cli:main"
 rea-eval = "rea.evaluation.run:main"
 rea-power = "rea.evaluation.power:main"
 rea-real = "rea.evaluation.real_events:main"
+rea-audit = "rea.evaluation.audit:main"
 
 [tool.setuptools.packages.find]
 where = ["python"]
