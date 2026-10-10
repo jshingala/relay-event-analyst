@@ -345,6 +345,12 @@ def mutations(sentences: list[tuple[str, list[str]]], sheet: FactSheet, rng: ran
                             f"The relay operated {opm.render()} after the fault began, {cyc.render()} {word} "
                             "than expected.",
                             ["relay.operate_ms", "expected.operate_ms", "relay.operate_cycles"]))
+    # The wrong breaker credited with ending the fault current.
+    cause = sheet.value("fault.end_cause")
+    if isinstance(cause, str):
+        claim = ("The fault was cleared by other breakers." if cause.startswith("local breaker")
+                 else "The local breaker interrupted the fault current.")
+        out.append(Mutation("wrong end cause", claim, ["fault.end_cause"]))
     # Number moved to the wrong subject: the relay operate time replaced by the breaker time.
     op = sheet.get("relay.operate_ms")
     br = sheet.get("breaker.interrupt_ms")
