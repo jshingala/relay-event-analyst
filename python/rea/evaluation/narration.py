@@ -325,6 +325,15 @@ def mutations(sentences: list[tuple[str, list[str]]], sheet: FactSheet, rng: ran
                 # Same error from a narrator that cites nothing: only context binding is left.
                 out.append(Mutation("value of a different fact, no citations", swapped, []))
             break
+    # The 52A opening time quoted as the interrupting time (both run from the trip), as the
+    # model did in the hand audit.
+    a52 = sheet.get("breaker.52a_open_after_trip_ms")
+    intr = sheet.get("breaker.interrupt_ms")
+    if a52 is not None and intr is not None and not a52.is_missing and not intr.is_missing \
+            and a52.display != intr.display:
+        text = f"The breaker interrupted the fault current {a52.render()} after the trip."
+        out.append(Mutation("52A opening as the interrupting time", text,
+                            ["breaker.interrupt_ms", "breaker.52a_open_after_trip_ms"]))
     # Number moved to the wrong subject: the relay operate time replaced by the breaker time.
     op = sheet.get("relay.operate_ms")
     br = sheet.get("breaker.interrupt_ms")
