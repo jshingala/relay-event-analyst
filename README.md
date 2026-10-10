@@ -85,7 +85,9 @@ Read by hand, 15 were wrong; the validator removed 9 of them. It also removed 10
 9 of which give the fault inception relative to the trigger without naming the trigger. The 6 wrong
 sentences it kept quote the 52A opening time as the interrupting time, quote the operate time in
 cycles as the deviation from the expected time, or misstate what the direction or a non-trip means.
-Details and every wrong sentence: [eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
+These counts are for the validator at the time of the run; checks for the first two patterns and
+for the trigger-relative times were added afterwards. Details and every wrong sentence:
+[eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
 
 **Jetson**: `scripts/bench_jetson.sh` measures seconds per event and board power with `tegrastats`
 (idle baseline, then N narrated events, joules per event). Not measured yet; numbers go here when
