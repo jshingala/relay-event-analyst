@@ -1,0 +1,25 @@
+# build output
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Papers are copyrighted by their publishers: keep them on the device, never in git.
+papers/*
+!papers/README.md
+!papers/sel-papers.txt
+.rea_index.json
+
+# generated data (regenerate with `make synth`); bulky per-event results
+data/synth/
+eval/**/events.json
+out/
+logs/
+
+# local models
+*.gguf
+
+# SEL example event files (downloaded by rea-real --fetch) and their conversions: not ours to redistribute
+data/real/
+eval/real/converted/

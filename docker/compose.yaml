@@ -1,0 +1,36 @@
+# Run the analyst as a locked-down container next to Ollama installed on the host.
+#
+#   docker compose -f docker/compose.yaml build
+#   docker compose -f docker/compose.yaml run --rm rea doctor
+#   docker compose -f docker/compose.yaml run --rm rea analyze /events/demo_bg_51g_normal.cfg --md /out/report.md
+#
+# Why host networking: Ollama listens on the host's 127.0.0.1:11434 and rea only talks
+# to loopback addresses, so sharing the host's network namespace is what lets the two
+# meet without opening Ollama to the network. rea itself never connects anywhere else
+# (enforced in code; see python/rea/llm.py). Everything else is locked down.
+name: rea
+
+services:
+  rea:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: relay-event-analyst:0.1.0
+    network_mode: host
+    read_only: true                 # root filesystem is immutable
+    user: "${REA_UID:-10001}:${REA_GID:-10001}"   # never root; demo.sh passes your uid so out/ stays yours
+    cap_drop: [ALL]                 # no Linux capabilities
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=64m,mode=1777     # index cache and scratch only
+    pids_limit: 128
+    mem_limit: 1g
+    environment:
+      REA_BACKEND: ollama
+      REA_MODEL: llama3.2:3b
+      REA_LLM_HOST: http://127.0.0.1:11434
+    volumes:
+      - ../data/demo:/events:ro     # COMTRADE records in, read-only
+      - ../papers:/papers:ro        # your local copies of technical papers, read-only
+      - ../out:/out                 # reports out

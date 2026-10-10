@@ -1,0 +1,65 @@
+{
+  "id": "demo_ag_reverse_restrained",
+  "fault_type": "AG",
+  "direction": "reverse",
+  "location_pu": 0.0522,
+  "r_phase_ohm": 0.0,
+  "r_ground_ohm": 29.726,
+  "anomaly": "none",
+  "variant": "normal",
+  "inception_in_record": true,
+  "inception_ms": 59.7533,
+  "trip_ms": null,
+  "relay_tripped": false,
+  "pole_clear_ms": [
+    null,
+    null,
+    null
+  ],
+  "removal_clear_ms": [
+    177.5872,
+    177.5872,
+    177.5872
+  ],
+  "fault_end_ms": 177.5872,
+  "end_cause": "returned_to_load",
+  "expected_closed_form": null,
+  "field_closed_form": null,
+  "expected_relay_verdict": "correctly did not trip",
+  "expected_breaker_verdict": "not applicable",
+  "steady_secondary": {
+    "i_rms_a": [
+      0.7638,
+      0.318,
+      0.2546
+    ],
+    "v_rms_v": [
+      63.749,
+      68.433,
+      65.367
+    ],
+    "i_max_a": 0.7638,
+    "three_i0_a": 0.8271,
+    "i2_a": 0.4002
+  },
+  "record": {
+    "samples_per_cycle": 16,
+    "sample_rate_hz": 960.0,
+    "f_actual_hz": 60.0479,
+    "format": "BINARY",
+    "primary_scaling": false,
+    "channel_names": [
+      "IAW",
+      "IBW",
+      "ICW",
+      "VAY",
+      "VBY",
+      "VCY"
+    ],
+    "trip_channel": "TRIP",
+    "duration_ms": 310.7784,
+    "noise_fraction": 0.00185,
+    "dc_tau_ms": 28.707
+  },
+  "settings_file": "demo_ag_reverse_restrained.settings.txt"
+}

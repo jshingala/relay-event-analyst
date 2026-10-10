@@ -1,0 +1,3616 @@
+[
+ {
+  "event": "Exercise 1 - Motor / Exercise 1 CEV_R_1.CEV",
+  "relay": "SEL-710",
+  "relay_event": "ER Trigger",
+  "relay_targets": "-",
+  "relay_phrot": "ABC",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "display": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "SEL-710",
+     "display": "SEL-710",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1999,
+     "display": "1999",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "07/05/2014,12:43:05.412708",
+     "display": "07/05/2014,12:43:05.412708",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "07/05/2014,12:43:05.595000",
+     "display": "07/05/2014,12:43:05.595000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 1082.3,
+     "display": "1082.3",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "display": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "settings.CTR",
+     "kind": "number",
+     "value": 80.0,
+     "display": "80.0",
+     "decimals": 1,
+     "unit": "",
+     "label": "CT ratio (primary:secondary)",
+     "method": "settings or CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced voltage phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "matches the PHROT setting",
+     "display": "matches the PHROT setting",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 2
+    },
+    {
+     "id": "breaker.close_ms",
+     "kind": "number",
+     "value": 94.79,
+     "display": "94.79",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Breaker closed (52A rose), from the first sample",
+     "method": "52A 0->1 transition",
+     "priority": 2
+    },
+    {
+     "id": "fault.after_breaker_close_ms",
+     "kind": "number",
+     "value": 71.87,
+     "display": "71.87",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Disturbance began after the breaker closed",
+     "method": "onset - 52A rising edge",
+     "priority": 1
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "number",
+     "value": 166.67,
+     "display": "166.67",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception, measured from the first sample",
+     "method": "first sample where |x[k] - x[k-N]| leaves the noise floor",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_from_trigger_ms",
+     "kind": "number",
+     "value": -15.63,
+     "display": "-15.63",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception relative to the record trigger",
+     "method": "inception - trigger",
+     "priority": 2
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "fault current still present at the end of the record",
+     "display": "fault current still present at the end of the record",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "BCG",
+     "display": "BCG",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "B-C-to-ground",
+     "display": "B-C-to-ground",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_i0_angle_deg",
+     "kind": "number",
+     "value": -30.7,
+     "display": "-30.7",
+     "decimals": 1,
+     "unit": "deg",
+     "label": "Angle of I2 relative to I0",
+     "method": "incremental sequence currents",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 1082.29,
+     "display": "1082.29",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 11.09,
+     "display": "11.09",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ia_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.va_rms_v",
+     "kind": "number",
+     "value": 79.9,
+     "display": "79.9",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.va_rms_v",
+     "kind": "number",
+     "value": 83.9,
+     "display": "83.9",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 11.14,
+     "display": "11.14",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ib_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vb_rms_v",
+     "kind": "number",
+     "value": 80.0,
+     "display": "80.0",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vb_rms_v",
+     "kind": "number",
+     "value": 84.0,
+     "display": "84.0",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 11.08,
+     "display": "11.08",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ic_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vc_rms_v",
+     "kind": "number",
+     "value": 79.8,
+     "display": "79.8",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vc_rms_v",
+     "kind": "number",
+     "value": 84.0,
+     "display": "84.0",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "B",
+     "display": "B",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 11.14,
+     "display": "11.14",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_primary_a",
+     "kind": "number",
+     "value": 891,
+     "display": "891",
+     "decimals": 0,
+     "unit": "A",
+     "label": "Largest phase fault current (primary RMS)",
+     "method": "secondary x CTR",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 0.04,
+     "display": "0.04",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 11.1,
+     "display": "11.10",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 0.02,
+     "display": "0.02",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 32.22,
+     "display": "32.22",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (secondary, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 2.06,
+     "display": "2.06",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Fault direction relative to the relay",
+     "method": "32Q negative-sequence impedance z2 = Re[V2 * conj(I2 * 1/Z1ANG)] / |I2|^2",
+     "priority": 1
+    },
+    {
+     "id": "fault.z2_ohm",
+     "kind": "number",
+     "value": 0.07,
+     "display": "0.07",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Negative-sequence directional impedance z2 (secondary ohms)",
+     "method": "32Q negative-sequence impedance z2 = Re[V2 * conj(I2 * 1/Z1ANG)] / |I2|^2",
+     "priority": 2
+    },
+    {
+     "id": "settings.Z2F",
+     "kind": "number",
+     "value": 0.0,
+     "display": "0.00",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Forward threshold Z2F",
+     "method": "settings (default 0.5 x Z1MAG)",
+     "priority": 2
+    },
+    {
+     "id": "settings.Z2R",
+     "kind": "number",
+     "value": 0.1,
+     "display": "0.10",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Reverse threshold Z2R",
+     "method": "settings (default Z2F + 0.1)",
+     "priority": 2
+    },
+    {
+     "id": "relay.tripped",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Relay trip output asserted",
+     "method": "trip channel never rose",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "no local trip and no local interruption",
+     "label": "Breaker interrupting time",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "fault current did not end within the record",
+     "label": "Fault duration",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "no 50P1/51P1/51G1 settings were provided",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "not applicable",
+     "display": "not applicable",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "INOM not set: current thresholds are scaled to the record's typical current (11.5 A secondary); set INOM to the relay's rating for fixed thresholds",
+    "the disturbance began just after the breaker closed: it may be an energization (motor start, inrush) rather than a fault; a switch onto a fault would look the same",
+    "direction: z2 between Z2F and Z2R"
+   ],
+   "meta": {
+    "analyze_ms": 0.303,
+    "parse_ms": 32.27,
+    "samples": 1040.0
+   }
+  }
+ },
+ {
+  "event": "Exercise 1 - Motor / Exercise 1 CEV_R_2.CEV",
+  "relay": "SEL-710",
+  "relay_event": "ER Trigger",
+  "relay_targets": "-",
+  "relay_phrot": "ABC",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "display": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "SEL-710",
+     "display": "SEL-710",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1999,
+     "display": "1999",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "04/05/2014,07:28:55.472708",
+     "display": "04/05/2014,07:28:55.472708",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "04/05/2014,07:28:55.655000",
+     "display": "04/05/2014,07:28:55.655000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 1082.3,
+     "display": "1082.3",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "display": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "settings.CTR",
+     "kind": "number",
+     "value": 80.0,
+     "display": "80.0",
+     "decimals": 1,
+     "unit": "",
+     "label": "CT ratio (primary:secondary)",
+     "method": "settings or CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced voltage phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "matches the PHROT setting",
+     "display": "matches the PHROT setting",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "number",
+     "value": 47.92,
+     "display": "47.92",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception, measured from the first sample",
+     "method": "first sample where |x[k] - x[k-N]| leaves the noise floor",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_from_trigger_ms",
+     "kind": "number",
+     "value": -134.38,
+     "display": "-134.38",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception relative to the record trigger",
+     "method": "inception - trigger",
+     "priority": 2
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "local breaker interrupted the current",
+     "display": "local breaker interrupted the current",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "three-phase",
+     "display": "three-phase",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 432.29,
+     "display": "432.29",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 11.71,
+     "display": "11.71",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ia_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.va_rms_v",
+     "kind": "number",
+     "value": 80.0,
+     "display": "80.0",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.va_rms_v",
+     "kind": "number",
+     "value": 84.4,
+     "display": "84.4",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 11.73,
+     "display": "11.73",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ib_rms_a",
+     "kind": "number",
+     "value": 0.02,
+     "display": "0.02",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vb_rms_v",
+     "kind": "number",
+     "value": 80.2,
+     "display": "80.2",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vb_rms_v",
+     "kind": "number",
+     "value": 84.6,
+     "display": "84.6",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 11.65,
+     "display": "11.65",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ic_rms_a",
+     "kind": "number",
+     "value": 0.0,
+     "display": "0.00",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vc_rms_v",
+     "kind": "number",
+     "value": 79.9,
+     "display": "79.9",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vc_rms_v",
+     "kind": "number",
+     "value": 84.5,
+     "display": "84.5",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "B",
+     "display": "B",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 11.73,
+     "display": "11.73",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_primary_a",
+     "kind": "number",
+     "value": 938,
+     "display": "938",
+     "decimals": 0,
+     "unit": "A",
+     "label": "Largest phase fault current (primary RMS)",
+     "method": "secondary x CTR",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 0.06,
+     "display": "0.06",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 11.7,
+     "display": "11.70",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 0.05,
+     "display": "0.05",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 33.26,
+     "display": "33.26",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (secondary, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 2.01,
+     "display": "2.01",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "text",
+     "value": "forward",
+     "display": "forward",
+     "label": "Fault direction relative to the relay",
+     "method": "incremental positive-sequence impedance Re[dV1 * conj(dI1 * 1/Z1ANG)] / |dI1|^2",
+     "priority": 1
+    },
+    {
+     "id": "fault.dz1_ohm",
+     "kind": "number",
+     "value": -0.27,
+     "display": "-0.27",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Incremental positive-sequence impedance (secondary ohms)",
+     "method": "incremental positive-sequence impedance Re[dV1 * conj(dI1 * 1/Z1ANG)] / |dI1|^2",
+     "priority": 2
+    },
+    {
+     "id": "relay.trip_channel",
+     "kind": "text",
+     "value": "TRIP",
+     "display": "TRIP",
+     "label": "Trip output channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.trip_ms",
+     "kind": "number",
+     "value": 282.29,
+     "display": "282.29",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Trip output asserted, from the first sample",
+     "method": "first 0->1 transition of the trip channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.operate_ms",
+     "kind": "number",
+     "value": 234.37,
+     "display": "234.37",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Relay operate time (inception to trip output)",
+     "method": "trip edge - inception",
+     "priority": 1
+    },
+    {
+     "id": "relay.operate_cycles",
+     "kind": "number",
+     "value": 14.06,
+     "display": "14.06",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Relay operate time in cycles",
+     "method": "operate time x frequency",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.52a_open_after_trip_ms",
+     "kind": "number",
+     "value": 37.5,
+     "display": "37.50",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "52A contact opened, after the trip",
+     "method": "52A falling edge - trip edge",
+     "priority": 2
+    },
+    {
+     "id": "breaker.pole_clearing_order",
+     "kind": "text",
+     "value": "BAC",
+     "display": "BAC",
+     "label": "Order in which poles interrupted",
+     "method": "first sample of a zero-current cycle per phase",
+     "priority": 2
+    },
+    {
+     "id": "breaker.first_pole",
+     "kind": "text",
+     "value": "B",
+     "display": "B",
+     "label": "First pole to clear",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_b_after_trip_ms",
+     "kind": "number",
+     "value": 151.04,
+     "display": "151.04",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase B current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_a_after_trip_ms",
+     "kind": "number",
+     "value": 155.21,
+     "display": "155.21",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase A current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_c_after_trip_ms",
+     "kind": "number",
+     "value": 155.21,
+     "display": "155.21",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase C current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "number",
+     "value": 155.21,
+     "display": "155.21",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Breaker interrupting time (trip to last pole cleared)",
+     "method": "last pole zero - trip edge",
+     "priority": 1
+    },
+    {
+     "id": "breaker.interrupt_cycles",
+     "kind": "number",
+     "value": 9.31,
+     "display": "9.31",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Breaker interrupting time in cycles",
+     "method": "interrupting time x frequency",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "number",
+     "value": 389.58,
+     "display": "389.58",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault duration (inception to current removed)",
+     "method": "last pole zero - inception",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_cycles",
+     "kind": "number",
+     "value": 23.37,
+     "display": "23.37",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Fault duration in cycles",
+     "method": "duration x frequency",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "no 50P1/51P1/51G1 settings were provided",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker_limit_cycles",
+     "kind": "number",
+     "value": 5.0,
+     "display": "5.0",
+     "decimals": 1,
+     "unit": "cycles",
+     "label": "Maximum acceptable interrupting time",
+     "method": "settings BKRMAX",
+     "priority": 2
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "slow",
+     "display": "slow",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "INOM not set: current thresholds are scaled to the record's typical current (0.097 A secondary); set INOM to the relay's rating for fixed thresholds"
+   ],
+   "meta": {
+    "analyze_ms": 0.206,
+    "parse_ms": 25.366,
+    "samples": 1040.0
+   }
+  }
+ },
+ {
+  "event": "Exercise 1 - Motor / Exercise 1 CEV_R_3.CEV",
+  "relay": "SEL-710",
+  "relay_event": "ER Trigger",
+  "relay_targets": "-",
+  "relay_phrot": "ABC",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "display": "FID=SEL-710-R407-V0-Z006004-D20111123",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "SEL-710",
+     "display": "SEL-710",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1999,
+     "display": "1999",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "04/05/2014,07:12:36.386708",
+     "display": "04/05/2014,07:12:36.386708",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "04/05/2014,07:12:36.569000",
+     "display": "04/05/2014,07:12:36.569000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 1082.3,
+     "display": "1082.3",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "display": "IA=IA(A) IB=IB(A) IC=IC(A) VA=VAB(V) VB=VBC(V) VC=VCA(V)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "settings.CTR",
+     "kind": "number",
+     "value": 80.0,
+     "display": "80.0",
+     "decimals": 1,
+     "unit": "",
+     "label": "CT ratio (primary:secondary)",
+     "method": "settings or CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced voltage phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "matches the PHROT setting",
+     "display": "matches the PHROT setting",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 2
+    },
+    {
+     "id": "breaker.close_ms",
+     "kind": "number",
+     "value": 61.46,
+     "display": "61.46",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Breaker closed (52A rose), from the first sample",
+     "method": "52A 0->1 transition",
+     "priority": 2
+    },
+    {
+     "id": "fault.after_breaker_close_ms",
+     "kind": "number",
+     "value": 71.87,
+     "display": "71.87",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Disturbance began after the breaker closed",
+     "method": "onset - 52A rising edge",
+     "priority": 1
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "number",
+     "value": 133.33,
+     "display": "133.33",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception, measured from the first sample",
+     "method": "first sample where |x[k] - x[k-N]| leaves the noise floor",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_from_trigger_ms",
+     "kind": "number",
+     "value": -48.96,
+     "display": "-48.96",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception relative to the record trigger",
+     "method": "inception - trigger",
+     "priority": 2
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "local breaker interrupted the current",
+     "display": "local breaker interrupted the current",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "three-phase",
+     "display": "three-phase",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 441.67,
+     "display": "441.67",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 11.26,
+     "display": "11.26",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ia_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.va_rms_v",
+     "kind": "number",
+     "value": 79.9,
+     "display": "79.9",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.va_rms_v",
+     "kind": "number",
+     "value": 84.5,
+     "display": "84.5",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 11.83,
+     "display": "11.83",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ib_rms_a",
+     "kind": "number",
+     "value": 0.01,
+     "display": "0.01",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vb_rms_v",
+     "kind": "number",
+     "value": 80.3,
+     "display": "80.3",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vb_rms_v",
+     "kind": "number",
+     "value": 84.7,
+     "display": "84.7",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 11.76,
+     "display": "11.76",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ic_rms_a",
+     "kind": "number",
+     "value": 0.02,
+     "display": "0.02",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.vc_rms_v",
+     "kind": "number",
+     "value": 80.1,
+     "display": "80.1",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.vc_rms_v",
+     "kind": "number",
+     "value": 84.6,
+     "display": "84.6",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C prefault voltage (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 3
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "B",
+     "display": "B",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 11.83,
+     "display": "11.83",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_primary_a",
+     "kind": "number",
+     "value": 946,
+     "display": "946",
+     "decimals": 0,
+     "unit": "A",
+     "label": "Largest phase fault current (primary RMS)",
+     "method": "secondary x CTR",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 1.05,
+     "display": "1.05",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 11.6,
+     "display": "11.60",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 0.43,
+     "display": "0.43",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 32.48,
+     "display": "32.48",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (secondary, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "B",
+     "display": "B",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 1.94,
+     "display": "1.94",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "text",
+     "value": "forward",
+     "display": "forward",
+     "label": "Fault direction relative to the relay",
+     "method": "incremental positive-sequence impedance Re[dV1 * conj(dI1 * 1/Z1ANG)] / |dI1|^2",
+     "priority": 1
+    },
+    {
+     "id": "fault.dz1_ohm",
+     "kind": "number",
+     "value": -0.28,
+     "display": "-0.28",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Incremental positive-sequence impedance (secondary ohms)",
+     "method": "incremental positive-sequence impedance Re[dV1 * conj(dI1 * 1/Z1ANG)] / |dI1|^2",
+     "priority": 2
+    },
+    {
+     "id": "relay.trip_channel",
+     "kind": "text",
+     "value": "TRIP",
+     "display": "TRIP",
+     "label": "Trip output channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.trip_ms",
+     "kind": "number",
+     "value": 282.29,
+     "display": "282.29",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Trip output asserted, from the first sample",
+     "method": "first 0->1 transition of the trip channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.operate_ms",
+     "kind": "number",
+     "value": 148.96,
+     "display": "148.96",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Relay operate time (inception to trip output)",
+     "method": "trip edge - inception",
+     "priority": 1
+    },
+    {
+     "id": "relay.operate_cycles",
+     "kind": "number",
+     "value": 8.94,
+     "display": "8.94",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Relay operate time in cycles",
+     "method": "operate time x frequency",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.52a_open_after_trip_ms",
+     "kind": "number",
+     "value": 45.83,
+     "display": "45.83",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "52A contact opened, after the trip",
+     "method": "52A falling edge - trip edge",
+     "priority": 2
+    },
+    {
+     "id": "breaker.pole_clearing_order",
+     "kind": "text",
+     "value": "CAB",
+     "display": "CAB",
+     "label": "Order in which poles interrupted",
+     "method": "first sample of a zero-current cycle per phase",
+     "priority": 2
+    },
+    {
+     "id": "breaker.first_pole",
+     "kind": "text",
+     "value": "C",
+     "display": "C",
+     "label": "First pole to clear",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_c_after_trip_ms",
+     "kind": "number",
+     "value": 160.42,
+     "display": "160.42",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase C current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_a_after_trip_ms",
+     "kind": "number",
+     "value": 164.58,
+     "display": "164.58",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase A current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.clear_b_after_trip_ms",
+     "kind": "number",
+     "value": 165.62,
+     "display": "165.62",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Phase B current interrupted, after the trip",
+     "method": "per-phase zero detection",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "number",
+     "value": 165.62,
+     "display": "165.62",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Breaker interrupting time (trip to last pole cleared)",
+     "method": "last pole zero - trip edge",
+     "priority": 1
+    },
+    {
+     "id": "breaker.interrupt_cycles",
+     "kind": "number",
+     "value": 9.94,
+     "display": "9.94",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Breaker interrupting time in cycles",
+     "method": "interrupting time x frequency",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "number",
+     "value": 314.58,
+     "display": "314.58",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault duration (inception to current removed)",
+     "method": "last pole zero - inception",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_cycles",
+     "kind": "number",
+     "value": 18.87,
+     "display": "18.87",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Fault duration in cycles",
+     "method": "duration x frequency",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "no 50P1/51P1/51G1 settings were provided",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker_limit_cycles",
+     "kind": "number",
+     "value": 5.0,
+     "display": "5.0",
+     "decimals": 1,
+     "unit": "cycles",
+     "label": "Maximum acceptable interrupting time",
+     "method": "settings BKRMAX",
+     "priority": 2
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "slow",
+     "display": "slow",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "INOM not set: current thresholds are scaled to the record's typical current (0.132 A secondary); set INOM to the relay's rating for fixed thresholds",
+    "the disturbance began just after the breaker closed: it may be an energization (motor start, inrush) rather than a fault; a switch onto a fault would look the same"
+   ],
+   "meta": {
+    "analyze_ms": 0.204,
+    "parse_ms": 27.061,
+    "samples": 1040.0
+   }
+  }
+ },
+ {
+  "event": "Exercise 2 - Distance / Exercise 2.CEV",
+  "relay": "SEL-311L-1",
+  "relay_event": "CA T",
+  "relay_targets": "TIME ZONE2",
+  "relay_phrot": "ABC",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-311L-1-R214-V0-Z011005-D20100616",
+     "display": "FID=SEL-311L-1-R214-V0-Z011005-D20100616",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "SEL-311L-1",
+     "display": "SEL-311L-1",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1999,
+     "display": "1999",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "26/02/2013,06:45:48.186708",
+     "display": "26/02/2013,06:45:48.186708",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "26/02/2013,06:45:48.269000",
+     "display": "26/02/2013,06:45:48.269000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 515.6,
+     "display": "515.6",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "display": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "settings.CTR",
+     "kind": "number",
+     "value": 240.0,
+     "display": "240.0",
+     "decimals": 1,
+     "unit": "",
+     "label": "CT ratio (primary:secondary)",
+     "method": "settings or CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ACB",
+     "display": "ACB",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced voltage phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ABC",
+     "display": "ABC",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "the record shows ACB rotation but the relay is set PHROT := ABC",
+     "display": "the record shows ACB rotation but the relay is set PHROT := ABC",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 1
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "the fault was already present when the record started",
+     "label": "Fault inception",
+     "priority": 1
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "display": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "CA",
+     "display": "CA",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "C-A phase-to-phase",
+     "display": "C-A phase-to-phase",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 110.42,
+     "display": "110.42",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 0.47,
+     "display": "0.47",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.va_rms_v",
+     "kind": "number",
+     "value": 42.7,
+     "display": "42.7",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase A fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 0.62,
+     "display": "0.62",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.vb_rms_v",
+     "kind": "number",
+     "value": 46.2,
+     "display": "46.2",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase B fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 0.71,
+     "display": "0.71",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.vc_rms_v",
+     "kind": "number",
+     "value": 42.5,
+     "display": "42.5",
+     "decimals": 1,
+     "unit": "V",
+     "label": "Phase C fault voltage (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "C",
+     "display": "C",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 0.71,
+     "display": "0.71",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_primary_a",
+     "kind": "number",
+     "value": 169,
+     "display": "169",
+     "decimals": 0,
+     "unit": "A",
+     "label": "Largest phase fault current (primary RMS)",
+     "method": "secondary x CTR",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 0.02,
+     "display": "0.02",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 0.59,
+     "display": "0.59",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 0.14,
+     "display": "0.14",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 1.03,
+     "display": "1.03",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (secondary, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "C",
+     "display": "C",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 1.03,
+     "display": "1.03",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "text",
+     "value": "forward",
+     "display": "forward",
+     "label": "Fault direction relative to the relay",
+     "method": "32Q negative-sequence impedance z2 = Re[V2 * conj(I2 * 1/Z1ANG)] / |I2|^2",
+     "priority": 1
+    },
+    {
+     "id": "fault.z2_ohm",
+     "kind": "number",
+     "value": -26.31,
+     "display": "-26.31",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Negative-sequence directional impedance z2 (secondary ohms)",
+     "method": "32Q negative-sequence impedance z2 = Re[V2 * conj(I2 * 1/Z1ANG)] / |I2|^2",
+     "priority": 2
+    },
+    {
+     "id": "settings.Z2F",
+     "kind": "number",
+     "value": 0.68,
+     "display": "0.68",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Forward threshold Z2F",
+     "method": "settings (default 0.5 x Z1MAG)",
+     "priority": 2
+    },
+    {
+     "id": "settings.Z2R",
+     "kind": "number",
+     "value": 0.78,
+     "display": "0.78",
+     "decimals": 2,
+     "unit": "ohm",
+     "label": "Reverse threshold Z2R",
+     "method": "settings (default Z2F + 0.1)",
+     "priority": 2
+    },
+    {
+     "id": "relay.trip_channel",
+     "kind": "text",
+     "value": "TRIP",
+     "display": "TRIP",
+     "label": "Trip output channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.trip_ms",
+     "kind": "number",
+     "value": 461.46,
+     "display": "461.46",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Trip output asserted, from the first sample",
+     "method": "first 0->1 transition of the trip channel",
+     "priority": 3
+    },
+    {
+     "id": "relay.operate_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "fault inception is not in the record",
+     "label": "Relay operate time",
+     "priority": 1
+    },
+    {
+     "id": "relay.trip_after_fault_end_ms",
+     "kind": "number",
+     "value": 348.96,
+     "display": "348.96",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Trip asserted after the fault had ended",
+     "method": "trip edge - fault end",
+     "priority": 1
+    },
+    {
+     "id": "relay.trip_after_fault_end_cycles",
+     "kind": "number",
+     "value": 20.94,
+     "display": "20.94",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Trip asserted after the fault had ended, in cycles",
+     "method": "delay x frequency",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.52a_open_after_trip_ms",
+     "kind": "number",
+     "value": 41.67,
+     "display": "41.67",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "52A contact opened, after the trip",
+     "method": "52A falling edge - trip edge",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "current was not interrupted by the local breaker within the record",
+     "label": "Breaker interrupting time",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "fault inception is not in the record",
+     "label": "Fault duration",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "fault inception is not in the record",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "tripped after the fault had ended",
+     "display": "tripped after the fault had ended",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "opened on the late trip, with no fault current left to interrupt",
+     "display": "opened on the late trip, with no fault current left to interrupt",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "INOM not set: current thresholds are scaled to the record's typical current (0.598 A secondary); set INOM to the relay's rating for fixed thresholds",
+    "phase rotation: the record shows ACB but PHROT := ABC; a relay using that setting computes positive and negative sequence swapped",
+    "record starts during a disturbance; treating the fault as present before the record",
+    "fault inception is not in the record; operate time cannot be measured",
+    "record starts inside the fault: incremental quantities use the post-fault load as the reference"
+   ],
+   "meta": {
+    "analyze_ms": 0.185,
+    "parse_ms": 12.683,
+    "samples": 496.0
+   }
+  }
+ },
+ {
+  "event": "Practise Event / Case 1.cev",
+  "relay": "SEL-351R-2",
+  "relay_event": "CA",
+  "relay_targets": "11000000 10000000",
+  "relay_phrot": "ACB",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-351R-2-R308-V0-Z007006-D20110303",
+     "display": "FID=SEL-351R-2-R308-V0-Z007006-D20110303",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "SEL-351R-2",
+     "display": "SEL-351R-2",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1999,
+     "display": "1999",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "14/07/2011,08:34:06.119375",
+     "display": "14/07/2011,08:34:06.119375",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "14/07/2011,08:34:06.185000",
+     "display": "14/07/2011,08:34:06.185000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 249.0,
+     "display": "249.0",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "display": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "settings.CTR",
+     "kind": "number",
+     "value": 1000.0,
+     "display": "1000.0",
+     "decimals": 1,
+     "unit": "",
+     "label": "CT ratio (primary:secondary)",
+     "method": "settings or CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ACB",
+     "display": "ACB",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced current phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ACB",
+     "display": "ACB",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "matches the PHROT setting",
+     "display": "matches the PHROT setting",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "number",
+     "value": 51.04,
+     "display": "51.04",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception, measured from the first sample",
+     "method": "first sample where |x[k] - x[k-N]| leaves the noise floor",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_from_trigger_ms",
+     "kind": "number",
+     "value": -14.58,
+     "display": "-14.58",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception relative to the record trigger",
+     "method": "inception - trigger",
+     "priority": 2
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "display": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "CA",
+     "display": "CA",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "C-A phase-to-phase",
+     "display": "C-A phase-to-phase",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 73.96,
+     "display": "73.96",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 0.33,
+     "display": "0.33",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ia_rms_a",
+     "kind": "number",
+     "value": 0.09,
+     "display": "0.09",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 0.11,
+     "display": "0.11",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ib_rms_a",
+     "kind": "number",
+     "value": 0.08,
+     "display": "0.08",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 0.31,
+     "display": "0.31",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ic_rms_a",
+     "kind": "number",
+     "value": 0.09,
+     "display": "0.09",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C prefault current (secondary RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 0.33,
+     "display": "0.33",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_primary_a",
+     "kind": "number",
+     "value": 331,
+     "display": "331",
+     "decimals": 0,
+     "unit": "A",
+     "label": "Largest phase fault current (primary RMS)",
+     "method": "secondary x CTR",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 0.0,
+     "display": "0.00",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (secondary RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 0.23,
+     "display": "0.23",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 0.13,
+     "display": "0.13",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (secondary)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 0.48,
+     "display": "0.48",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (secondary, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 1.03,
+     "display": "1.03",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "missing",
+     "value": null,
+     "reason": "the voltage channels carry no signal (VTs not connected?)",
+     "label": "Fault direction",
+     "priority": 1
+    },
+    {
+     "id": "relay.tripped",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Relay trip output asserted",
+     "method": "trip channel never rose",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "no local trip and no local interruption",
+     "label": "Breaker interrupting time",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "number",
+     "value": 21.87,
+     "display": "21.87",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault duration (inception to current removed)",
+     "method": "forward cycle difference",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_cycles",
+     "kind": "number",
+     "value": 1.31,
+     "display": "1.31",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Fault duration in cycles",
+     "method": "duration x frequency",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "no 50P1/51P1/51G1 settings were provided",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "not applicable",
+     "display": "not applicable",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "the voltage channels carry no signal (VTs not connected?): direction cannot be determined",
+    "INOM not set: current thresholds are scaled to the record's typical current (0.0859 A secondary); set INOM to the relay's rating for fixed thresholds",
+    "fault lasted 1.3 cycles, shorter than the phasor window: magnitudes come from a partial window and are underestimated"
+   ],
+   "meta": {
+    "analyze_ms": 0.146,
+    "parse_ms": 4.636,
+    "samples": 240.0
+   }
+  }
+ },
+ {
+  "event": "Practise Event / Case 1_from_cev.cfg",
+  "relay": "SEL-351R-2",
+  "relay_event": "CA",
+  "relay_targets": "11000000 10000000",
+  "relay_phrot": "ACB",
+  "facts": {
+   "schema": "rea.facts/1",
+   "facts": [
+    {
+     "id": "record.station",
+     "kind": "text",
+     "value": "FID=SEL-351R-2-R308-V0-Z007006-D20110303",
+     "display": "FID=SEL-351R-2-R308-V0-Z007006-D20110303",
+     "label": "Station name in the COMTRADE header",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.device",
+     "kind": "text",
+     "value": "0",
+     "display": "0",
+     "label": "Recording device id",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.rev_year",
+     "kind": "number",
+     "value": 1991,
+     "display": "1991",
+     "decimals": 0,
+     "unit": "",
+     "label": "COMTRADE revision year",
+     "method": "CFG line 1",
+     "priority": 3
+    },
+    {
+     "id": "record.start_time",
+     "kind": "text",
+     "value": "07/14/11,08:34:06.119375",
+     "display": "07/14/11,08:34:06.119375",
+     "label": "Time of first sample",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.trigger_time",
+     "kind": "text",
+     "value": "07/14/11,08:34:06.185000",
+     "display": "07/14/11,08:34:06.185000",
+     "label": "Trigger time",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.data_format",
+     "kind": "text",
+     "value": "ASCII",
+     "display": "ASCII",
+     "label": "DAT file format",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.sample_rate_hz",
+     "kind": "number",
+     "value": 960.0,
+     "display": "960.0",
+     "decimals": 1,
+     "unit": "Hz",
+     "label": "Sampling rate",
+     "method": "CFG",
+     "priority": 3
+    },
+    {
+     "id": "record.nominal_hz",
+     "kind": "number",
+     "value": 60,
+     "display": "60",
+     "decimals": 0,
+     "unit": "Hz",
+     "label": "Nominal system frequency",
+     "method": "CFG line frequency or NFREQ",
+     "priority": 3
+    },
+    {
+     "id": "record.duration_ms",
+     "kind": "number",
+     "value": 249.0,
+     "display": "249.0",
+     "decimals": 1,
+     "unit": "ms",
+     "label": "Record length",
+     "method": "DAT",
+     "priority": 3
+    },
+    {
+     "id": "record.samples_per_cycle",
+     "kind": "number",
+     "value": 16,
+     "display": "16",
+     "decimals": 0,
+     "unit": "",
+     "label": "Samples per power-system cycle",
+     "method": "fs / f",
+     "priority": 3
+    },
+    {
+     "id": "record.channels_used",
+     "kind": "text",
+     "value": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "display": "IA=IA IB=IB IC=IC VA=VA(kV) VB=VB(kV) VC=VC(kV)",
+     "label": "Analog channels used",
+     "method": "channel mapping",
+     "priority": 3
+    },
+    {
+     "id": "record.rotation",
+     "kind": "text",
+     "value": "ACB",
+     "display": "ACB",
+     "label": "Phase rotation used for sequence components",
+     "method": "dominant sequence of the most balanced current phasors",
+     "priority": 2
+    },
+    {
+     "id": "settings.PHROT",
+     "kind": "text",
+     "value": "ACB",
+     "display": "ACB",
+     "label": "Phase rotation setting",
+     "method": "settings PHROT",
+     "priority": 2
+    },
+    {
+     "id": "assessment.rotation",
+     "kind": "text",
+     "value": "matches the PHROT setting",
+     "display": "matches the PHROT setting",
+     "label": "Phase rotation check",
+     "method": "measured vs. PHROT",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_ms",
+     "kind": "number",
+     "value": 51.04,
+     "display": "51.04",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception, measured from the first sample",
+     "method": "first sample where |x[k] - x[k-N]| leaves the noise floor",
+     "priority": 2
+    },
+    {
+     "id": "fault.inception_from_trigger_ms",
+     "kind": "number",
+     "value": -14.58,
+     "display": "-14.58",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault inception relative to the record trigger",
+     "method": "inception - trigger",
+     "priority": 2
+    },
+    {
+     "id": "fault.end_cause",
+     "kind": "text",
+     "value": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "display": "current returned to load before any local trip (self-cleared or cleared by other protection)",
+     "label": "How the fault current ended",
+     "method": "per-pole zero-current detection",
+     "priority": 1
+    },
+    {
+     "id": "fault.detected",
+     "kind": "flag",
+     "value": true,
+     "display": "yes",
+     "label": "Fault detected",
+     "method": "incremental current above 0.1 x INOM",
+     "priority": 1
+    },
+    {
+     "id": "fault.type",
+     "kind": "text",
+     "value": "CA",
+     "display": "CA",
+     "label": "Fault type",
+     "method": "incremental phase-to-phase currents and angle of I2/I0",
+     "priority": 1
+    },
+    {
+     "id": "fault.type_description",
+     "kind": "text",
+     "value": "C-A phase-to-phase",
+     "display": "C-A phase-to-phase",
+     "label": "Fault type in words",
+     "priority": 1
+    },
+    {
+     "id": "fault.ground_involved",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Ground involved",
+     "method": "3I0 relative to the largest incremental phase current",
+     "priority": 2
+    },
+    {
+     "id": "fault.steady_at_ms",
+     "kind": "number",
+     "value": 73.96,
+     "display": "73.96",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Time of the steady-state magnitude snapshot",
+     "method": "end of the last full phasor window inside the fault",
+     "priority": 3
+    },
+    {
+     "id": "fault.ia_rms_a",
+     "kind": "number",
+     "value": 330.95,
+     "display": "330.95",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A fault current (as recorded RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ia_rms_a",
+     "kind": "number",
+     "value": 85.39,
+     "display": "85.39",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase A prefault current (as recorded RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.ib_rms_a",
+     "kind": "number",
+     "value": 105.16,
+     "display": "105.16",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B fault current (as recorded RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ib_rms_a",
+     "kind": "number",
+     "value": 76.35,
+     "display": "76.35",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase B prefault current (as recorded RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.ic_rms_a",
+     "kind": "number",
+     "value": 310.56,
+     "display": "310.56",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C fault current (as recorded RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "prefault.ic_rms_a",
+     "kind": "number",
+     "value": 87.29,
+     "display": "87.29",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Phase C prefault current (as recorded RMS)",
+     "method": "phasor before inception",
+     "priority": 2
+    },
+    {
+     "id": "fault.max_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest fault current",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.max_phase_rms_a",
+     "kind": "number",
+     "value": 330.95,
+     "display": "330.95",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest phase fault current (as recorded RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 1
+    },
+    {
+     "id": "fault.3i0_a",
+     "kind": "number",
+     "value": 1.17,
+     "display": "1.17",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Residual current 3I0 (as recorded RMS)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i1_a",
+     "kind": "number",
+     "value": 234.59,
+     "display": "234.59",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Positive-sequence current I1 (as recorded)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.i2_a",
+     "kind": "number",
+     "value": 131.59,
+     "display": "131.59",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Negative-sequence current I2 (as recorded)",
+     "method": "cosine filter phasor, last full window before the fault ended",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_a",
+     "kind": "number",
+     "value": 484.0,
+     "display": "484.00",
+     "decimals": 2,
+     "unit": "A",
+     "label": "Largest instantaneous fault current (as recorded, includes DC offset)",
+     "method": "max |i(t)| during the fault",
+     "priority": 2
+    },
+    {
+     "id": "fault.peak_phase",
+     "kind": "text",
+     "value": "A",
+     "display": "A",
+     "label": "Phase with the largest instantaneous current",
+     "method": "max |i(t)|",
+     "priority": 2
+    },
+    {
+     "id": "fault.asymmetry",
+     "kind": "number",
+     "value": 1.03,
+     "display": "1.03",
+     "decimals": 2,
+     "unit": "",
+     "label": "Peak divided by symmetrical peak (DC offset indicator)",
+     "method": "peak / (sqrt(2) x RMS)",
+     "priority": 3
+    },
+    {
+     "id": "fault.direction",
+     "kind": "missing",
+     "value": null,
+     "reason": "the voltage channels carry no signal (VTs not connected?)",
+     "label": "Fault direction",
+     "priority": 1
+    },
+    {
+     "id": "relay.tripped",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "Relay trip output asserted",
+     "method": "trip channel never rose",
+     "priority": 1
+    },
+    {
+     "id": "breaker.status_channel",
+     "kind": "text",
+     "value": "52A",
+     "display": "52A",
+     "label": "Breaker status channel",
+     "method": "digital channel",
+     "priority": 3
+    },
+    {
+     "id": "breaker.52a_opened",
+     "kind": "flag",
+     "value": false,
+     "display": "no",
+     "label": "52A contact opened during the record",
+     "method": "52A 1->0 transition",
+     "priority": 2
+    },
+    {
+     "id": "breaker.interrupt_ms",
+     "kind": "missing",
+     "value": null,
+     "reason": "no local trip and no local interruption",
+     "label": "Breaker interrupting time",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_ms",
+     "kind": "number",
+     "value": 21.87,
+     "display": "21.87",
+     "decimals": 2,
+     "unit": "ms",
+     "label": "Fault duration (inception to current removed)",
+     "method": "forward cycle difference",
+     "priority": 1
+    },
+    {
+     "id": "fault.duration_cycles",
+     "kind": "number",
+     "value": 1.31,
+     "display": "1.31",
+     "decimals": 2,
+     "unit": "cycles",
+     "label": "Fault duration in cycles",
+     "method": "duration x frequency",
+     "priority": 1
+    },
+    {
+     "id": "settings.DIR",
+     "kind": "text",
+     "value": "non-directional",
+     "display": "non-directional",
+     "label": "Directional supervision setting (DIR) of the overcurrent elements",
+     "method": "settings DIR",
+     "priority": 2
+    },
+    {
+     "id": "expected.element",
+     "kind": "missing",
+     "value": null,
+     "reason": "no 50P1/51P1/51G1 settings were provided",
+     "label": "Element expected to trip first",
+     "priority": 1
+    },
+    {
+     "id": "assessment.relay",
+     "kind": "text",
+     "value": "undetermined",
+     "display": "undetermined",
+     "label": "Relay performance verdict",
+     "method": "actual trip vs. replayed settings",
+     "priority": 1
+    },
+    {
+     "id": "assessment.breaker",
+     "kind": "text",
+     "value": "not applicable",
+     "display": "not applicable",
+     "label": "Breaker performance verdict",
+     "method": "interrupting time vs. BKRMAX",
+     "priority": 1
+    }
+   ],
+   "warnings": [
+    "the voltage channels carry no signal (VTs not connected?): direction cannot be determined",
+    "INOM not set: current thresholds are scaled to the record's typical current (85.9 A as recorded); set INOM to the relay's rating for fixed thresholds",
+    "fault lasted 1.3 cycles, shorter than the phasor window: magnitudes come from a partial window and are underestimated"
+   ],
+   "meta": {
+    "analyze_ms": 0.163,
+    "parse_ms": 6.563,
+    "samples": 240.0
+   }
+  }
+ }
+]

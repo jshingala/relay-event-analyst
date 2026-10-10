@@ -1,0 +1,71 @@
+{
+  "id": "demo_cag_slow_relay",
+  "fault_type": "CAG",
+  "direction": "forward",
+  "location_pu": 0.6589,
+  "r_phase_ohm": 0.234,
+  "r_ground_ohm": 2.862,
+  "anomaly": "slow_relay",
+  "variant": "normal",
+  "inception_in_record": true,
+  "inception_ms": 74.8928,
+  "trip_ms": 2374.5168,
+  "relay_tripped": true,
+  "pole_clear_ms": [
+    2408.4094,
+    2409.6968,
+    2409.5852
+  ],
+  "removal_clear_ms": [
+    null,
+    null,
+    null
+  ],
+  "fault_end_ms": 2409.6968,
+  "end_cause": "local_breaker",
+  "expected_closed_form": {
+    "element": "51G1",
+    "ms": 886.4485
+  },
+  "field_closed_form": {
+    "element": "51G1",
+    "ms": 2287.2437
+  },
+  "expected_relay_verdict": "slower than expected",
+  "expected_breaker_verdict": "normal",
+  "steady_secondary": {
+    "i_rms_a": [
+      12.6414,
+      0.8782,
+      15.2323
+    ],
+    "v_rms_v": [
+      55.33,
+      69.109,
+      52.788
+    ],
+    "i_max_a": 15.2323,
+    "three_i0_a": 6.1332,
+    "i2_a": 6.8076
+  },
+  "record": {
+    "samples_per_cycle": 16,
+    "sample_rate_hz": 960.0,
+    "f_actual_hz": 60.0,
+    "format": "BINARY",
+    "primary_scaling": false,
+    "channel_names": [
+      "IA",
+      "IB",
+      "IC",
+      "VA",
+      "VB",
+      "VC"
+    ],
+    "trip_channel": "TRIP",
+    "duration_ms": 2562.5668,
+    "noise_fraction": 0.00217,
+    "dc_tau_ms": 22.011
+  },
+  "settings_file": "demo_cag_slow_relay.settings.txt"
+}

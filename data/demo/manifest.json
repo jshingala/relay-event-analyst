@@ -1,0 +1,35 @@
+{
+  "seed": null,
+  "events": [
+    {
+      "id": "demo_bg_51g_normal",
+      "cfg": "demo_bg_51g_normal.cfg",
+      "settings": "demo_bg_51g_normal.settings.txt",
+      "labels": "demo_bg_51g_normal.labels.json"
+    },
+    {
+      "id": "demo_bc_slow_breaker",
+      "cfg": "demo_bc_slow_breaker.cfg",
+      "settings": "demo_bc_slow_breaker.settings.txt",
+      "labels": "demo_bc_slow_breaker.labels.json"
+    },
+    {
+      "id": "demo_ag_reverse_restrained",
+      "cfg": "demo_ag_reverse_restrained.cfg",
+      "settings": "demo_ag_reverse_restrained.settings.txt",
+      "labels": "demo_ag_reverse_restrained.labels.json"
+    },
+    {
+      "id": "demo_cag_slow_relay",
+      "cfg": "demo_cag_slow_relay.cfg",
+      "settings": "demo_cag_slow_relay.settings.txt",
+      "labels": "demo_cag_slow_relay.labels.json"
+    },
+    {
+      "id": "demo_abc_failed_to_trip",
+      "cfg": "demo_abc_failed_to_trip.cfg",
+      "settings": "demo_abc_failed_to_trip.settings.txt",
+      "labels": "demo_abc_failed_to_trip.labels.json"
+    }
+  ]
+}

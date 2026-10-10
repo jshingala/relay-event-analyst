@@ -1,0 +1,8 @@
+# settings on file for demo_bc_slow_breaker
+INOM   := 5.00    VNOM   := 66.40    CTR    := 240
+Z1MAG  := 2.91    Z1ANG  := 82.87    Z2F    := 1.45    Z2R    := 1.55
+DIR    := F
+50P1P  := OFF    50P1D  := 0.00
+51P1P := 1.89    51P1C := U1    51P1TD := 4.57    51P1RS := N
+51G1P := 0.61    51G1C := C1    51G1TD := 0.20    51G1RS := N
+TOLCYC := 1.50    TOLPCT := 5.00    BKRMAX := 5.00

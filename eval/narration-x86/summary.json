@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "generated_utc": "2026-10-09 21:17 UTC",
+    "host": "x86_64 Linux",
+    "data": "data/synth",
+    "seed": 7,
+    "filter": "cosine",
+    "wall_s": 2055.76
+  },
+  "core": {
+    "n_events": 20,
+    "n_errors": 0,
+    "fault_type_accuracy": 1.0,
+    "direction_accuracy": 1.0,
+    "direction_accuracy_decided": 1.0,
+    "direction_coverage": 1.0,
+    "relay_verdict_accuracy": 1.0,
+    "breaker_verdict_accuracy": 1.0,
+    "inception_abs_err_ms": {
+      "n": 20,
+      "median": 0.4125000000000085,
+      "p95": 1.238900000000001,
+      "max": 1.2420000000000044
+    },
+    "inception_abs_err_samples": {
+      "n": 20,
+      "median": 0.5036640000000046,
+      "p95": 0.9882239999999956,
+      "max": 1.1893440000000008
+    },
+    "trip_abs_err_ms": {
+      "n": 18,
+      "median": 0.4101999999999535,
+      "p95": 1.6902999999999793,
+      "max": 1.6902999999999793
+    },
+    "fault_end_abs_err_ms": {
+      "n": 20,
+      "median": 0.2670500000000331,
+      "p95": 1.34699999999998,
+      "max": 1.3847999999999843
+    },
+    "expected_vs_closed_form_ms": {
+      "n": 18,
+      "median": 10.235449999999979,
+      "p95": 13.355400000000031,
+      "max": 13.355400000000031
+    },
+    "expected_vs_closed_form_cycles": {
+      "n": 18,
+      "median": 0.6141269999999988,
+      "p95": 0.8013240000000019,
+      "max": 0.8013240000000019
+    },
+    "magnitude_abs_err_pct": {
+      "n": 20,
+      "median": 0.08571758894544174,
+      "p95": 1.2906930049019105,
+      "max": 1.3960758017636592
+    },
+    "core_wall_ms": {
+      "n": 20,
+      "median": 2.5445984997531923,
+      "p95": 5.055724000158079,
+      "max": 5.368172000089544
+    },
+    "confusion": {
+      "CA": {
+        "CA": 3
+      },
+      "BC": {
+        "BC": 1
+      },
+      "ABC": {
+        "ABC": 4
+      },
+      "AB": {
+        "AB": 3
+      },
+      "BCG": {
+        "BCG": 2
+      },
+      "ABG": {
+        "ABG": 1
+      },
+      "CG": {
+        "CG": 2
+      },
+      "AG": {
+        "AG": 1
+      },
+      "CAG": {
+        "CAG": 2
+      },
+      "BG": {
+        "BG": 1
+      }
+    },
+    "relay_confusion": {
+      "faster than expected": {
+        "faster than expected": 2
+      },
+      "operated as expected": {
+        "operated as expected": 14
+      },
+      "failed to trip": {
+        "failed to trip": 1
+      },
+      "correctly did not trip": {
+        "correctly did not trip": 1
+      },
+      "slower than expected": {
+        "slower than expected": 1
+      },
+      "tripped for a fault outside its directional zone": {
+        "tripped for a fault outside its directional zone": 1
+      }
+    },
+    "breaker_confusion": {
+      "normal": {
+        "normal": 16
+      },
+      "slow": {
+        "slow": 1
+      },
+      "not applicable": {
+        "not applicable": 2
+      },
+      "failed": {
+        "failed: current interrupted by other breakers while 52A stayed closed": 1
+      }
+    },
+    "per_anomaly": {
+      "wrong_curve": {
+        "n": 2,
+        "relay_ok": 2,
+        "breaker_ok": 2
+      },
+      "none": {
+        "n": 13,
+        "relay_ok": 13,
+        "breaker_ok": 13
+      },
+      "slow_breaker": {
+        "n": 1,
+        "relay_ok": 1,
+        "breaker_ok": 1
+      },
+      "failed_to_trip": {
+        "n": 1,
+        "relay_ok": 1,
+        "breaker_ok": 1
+      },
+      "breaker_failure": {
+        "n": 1,
+        "relay_ok": 1,
+        "breaker_ok": 1
+      },
+      "slow_relay": {
+        "n": 1,
+        "relay_ok": 1,
+        "breaker_ok": 1
+      },
+      "reverse_trip": {
+        "n": 1,
+        "relay_ok": 1,
+        "breaker_ok": 1
+      }
+    },
+    "failures": []
+  },
+  "narrator": {
+    "backend": "ollama",
+    "model": "llama3.2:3b",
+    "events": 20,
+    "sentences": 157,
+    "rejected": 9,
+    "rejected_rate": 0.05732484076433121,
+    "reasons": {
+      "number not produced by the core": 8,
+      "wrong direction": 1
+    },
+    "model_numbers": 189,
+    "model_numbers_traced_rate": 0.9576719576719577,
+    "delivered_numbers": 182,
+    "delivered_numbers_via_context": 1,
+    "fallbacks": 1,
+    "model_skipped": {
+      "fault type": 9,
+      "relay operation": 2
+    },
+    "sec_median": 105.7841910899997,
+    "sec_max": 141.64045377900038,
+    "tok_s_median": 3.732857323383594,
+    "completion_tokens_median": 366,
+    "prompt_tokens_median": 1395
+  },
+  "power": null,
+  "validator_redteam": null
+}

@@ -1,0 +1,10 @@
+build/
+out/
+logs/
+eval/results/
+data/synth/
+papers/
+**/__pycache__/
+**/*.pyc
+.git/
+*.gguf

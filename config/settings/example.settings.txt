@@ -1,0 +1,38 @@
+# Relay settings read by rea-core, in the `NAME := value` style of relay settings sheets.
+# Several pairs may share a line; text after '#' is a comment; names are case-insensitive.
+# OFF disables a numeric setting. Values are secondary quantities unless noted.
+#
+# Pass with:  rea analyze event.cfg --settings this_file
+# If omitted, rea looks for <event>.settings.txt next to the .cfg file.
+
+# --- system and instrument transformers
+INOM   := 5.00     # nominal secondary current (A)
+VNOM   := 66.40    # nominal secondary phase-to-neutral voltage (V)
+NFREQ  := 60       # nominal frequency (Hz); default: the COMTRADE header's line frequency
+CTR    := 240      # CT ratio, primary:secondary (used for primary amperes)
+
+# --- line impedance and negative-sequence directional thresholds (secondary ohms)
+Z1MAG  := 2.43     # positive-sequence line impedance magnitude
+Z1ANG  := 82.87    # positive-sequence line impedance angle (degrees)
+Z2F    := 1.22     # forward threshold: z2 below Z2F declares forward
+Z2R    := 1.32     # reverse threshold: z2 above Z2R declares reverse
+DIR    := F        # directional control on 50/51 elements: F, R or N (non-directional)
+
+# --- instantaneous phase overcurrent
+50P1P  := OFF      # pickup (A), OFF = disabled
+50P1D  := 0.00     # definite-time delay (cycles)
+
+# --- inverse-time overcurrent (curves U1-U5, C1-C5); RS := Y for electromechanical reset
+51P1P  := 3.57     51P1C  := U4     51P1TD := 0.55     51P1RS := N
+51G1P  := 0.78     51G1C  := C3     51G1TD := 1.00     51G1RS := N
+
+# --- how strictly the operate time is judged, and the breaker limit
+TOLCYC := 1.50     # allowed deviation = TOLCYC cycles ...
+TOLPCT := 5.00     # ... plus TOLPCT percent of the expected operate time
+BKRMAX := 5.00     # maximum acceptable interrupting time (cycles)
+
+# --- optional channel names, when auto-detection by name and unit is not enough
+# IA_CH := IAW    IB_CH := IBW    IC_CH := ICW
+# VA_CH := VAY    VB_CH := VBY    VC_CH := VCY
+# TRIPCH := OUT101     # trip output digital
+# BKRCH  := 52A        # breaker a-contact digital (1 = closed)

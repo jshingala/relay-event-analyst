@@ -1,0 +1,71 @@
+{
+  "id": "demo_bg_51g_normal",
+  "fault_type": "BG",
+  "direction": "forward",
+  "location_pu": 0.1603,
+  "r_phase_ohm": 0.0,
+  "r_ground_ohm": 23.194,
+  "anomaly": "none",
+  "variant": "normal",
+  "inception_in_record": true,
+  "inception_ms": 95.7563,
+  "trip_ms": 697.969,
+  "relay_tripped": true,
+  "pole_clear_ms": [
+    737.3079,
+    735.9696,
+    740.392
+  ],
+  "removal_clear_ms": [
+    null,
+    null,
+    null
+  ],
+  "fault_end_ms": 740.392,
+  "end_cause": "local_breaker",
+  "expected_closed_form": {
+    "element": "51G1",
+    "ms": 590.4763
+  },
+  "field_closed_form": {
+    "element": "51G1",
+    "ms": 590.4763
+  },
+  "expected_relay_verdict": "operated as expected",
+  "expected_breaker_verdict": "normal",
+  "steady_secondary": {
+    "i_rms_a": [
+      2.122,
+      7.0027,
+      2.041
+    ],
+    "v_rms_v": [
+      66.183,
+      63.932,
+      66.539
+    ],
+    "i_max_a": 7.0027,
+    "three_i0_a": 9.1125,
+    "i2_a": 2.8913
+  },
+  "record": {
+    "samples_per_cycle": 16,
+    "sample_rate_hz": 960.0,
+    "f_actual_hz": 60.0,
+    "format": "BINARY",
+    "primary_scaling": false,
+    "channel_names": [
+      "IAW",
+      "IBW",
+      "ICW",
+      "VAY",
+      "VBY",
+      "VCY"
+    ],
+    "trip_channel": "TRIP",
+    "duration_ms": 847.9833,
+    "noise_fraction": 0.00138,
+    "dc_tau_ms": 25.488
+  },
+  "settings_file": "demo_bg_51g_normal.settings.txt"
+}

@@ -1,0 +1,8 @@
+# SEL technical papers used for retrieval while developing rea (free downloads from selinc.com).
+# scripts/fetch_papers.sh downloads them into papers/; they are never committed.
+https://selinc.com/api/download/2591/    # Understanding and Analyzing Event Report Information (2000)
+https://selinc.com/api/download/2395/    # Analysis of Event Reports (WPRC 1989)
+https://selinc.com/api/download/122622/  # Back to the Basics - Event Analysis Using Symmetrical Components (2018)
+https://selinc.com/api/download/2475/    # Negative-Sequence Impedance Directional Element (1998)
+https://selinc.com/api/download/2399/    # Directional Element Design and Evaluation (2006)
+https://selinc.com/api/download/102555/  # Adaptive Inverse-Time Elements Take Microprocessor-Based Technology Beyond Emulating Electromechanical Relays (2014)

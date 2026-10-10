@@ -1,0 +1,8 @@
+# settings on file for demo_cag_slow_relay
+INOM   := 5.00    VNOM   := 66.40    CTR    := 240
+Z1MAG  := 5.15    Z1ANG  := 82.87    Z2F    := 2.58    Z2R    := 2.68
+DIR    := F
+50P1P  := OFF    50P1D  := 0.00
+51P1P := 1.84    51P1C := U1    51P1TD := 4.13    51P1RS := N
+51G1P := 1.24    51G1C := C3    51G1TD := 0.26    51G1RS := N
+TOLCYC := 1.50    TOLPCT := 5.00    BKRMAX := 5.00

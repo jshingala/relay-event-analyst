@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "generated_utc": "2026-10-09 21:28 UTC",
+    "host": "x86_64 Linux, 2 CPUs",
+    "data": "data/synth",
+    "seed": 7,
+    "filter": "cosine",
+    "wall_s": 22.43
+  },
+  "core": {
+    "n_events": 1000,
+    "n_errors": 0,
+    "fault_type_accuracy": 1.0,
+    "direction_accuracy": 0.998,
+    "direction_accuracy_decided": 1.0,
+    "direction_coverage": 0.998,
+    "relay_verdict_accuracy": 1.0,
+    "breaker_verdict_accuracy": 1.0,
+    "inception_abs_err_ms": {
+      "n": 972,
+      "median": 0.4060999999999986,
+      "p95": 1.5116000000000014,
+      "max": 3.6872999999999934
+    },
+    "inception_abs_err_samples": {
+      "n": 972,
+      "median": 0.5074559999999974,
+      "p95": 0.9482879999999931,
+      "max": 1.9500480000000016
+    },
+    "trip_abs_err_ms": {
+      "n": 804,
+      "median": 0.4086499999999944,
+      "p95": 1.5609000000000037,
+      "max": 2.0808999999999287
+    },
+    "fault_end_abs_err_ms": {
+      "n": 972,
+      "median": 0.31520000000000437,
+      "p95": 1.4507000000000119,
+      "max": 3.7952000000000226
+    },
+    "expected_vs_closed_form_ms": {
+      "n": 804,
+      "median": 10.913450000000068,
+      "p95": 14.58,
+      "max": 17.552499999999952
+    },
+    "expected_vs_closed_form_cycles": {
+      "n": 804,
+      "median": 0.6548070000000041,
+      "p95": 0.8747999999999999,
+      "max": 1.0531499999999971
+    },
+    "magnitude_abs_err_pct": {
+      "n": 1000,
+      "median": 0.02934402381183636,
+      "p95": 1.2491511123001204,
+      "max": 4.047407712329175
+    },
+    "core_wall_ms": {
+      "n": 1000,
+      "median": 2.6768740008265013,
+      "p95": 4.909684999802266,
+      "max": 10.365475000071456
+    },
+    "confusion": {
+      "CA": {
+        "CA": 84
+      },
+      "BC": {
+        "BC": 114
+      },
+      "ABC": {
+        "ABC": 105
+      },
+      "AB": {
+        "AB": 101
+      },
+      "BCG": {
+        "BCG": 115
+      },
+      "ABG": {
+        "ABG": 109
+      },
+      "CG": {
+        "CG": 89
+      },
+      "AG": {
+        "AG": 98
+      },
+      "CAG": {
+        "CAG": 90
+      },
+      "BG": {
+        "BG": 95
+      }
+    },
+    "relay_confusion": {
+      "faster than expected": {
+        "faster than expected": 40
+      },
+      "operated as expected": {
+        "operated as expected": 588
+      },
+      "failed to trip": {
+        "failed to trip": 56
+      },
+      "correctly did not trip": {
+        "correctly did not trip": 93
+      },
+      "slower than expected": {
+        "slower than expected": 80
+      },
+      "tripped for a fault outside its directional zone": {
+        "tripped for a fault outside its directional zone": 68
+      },
+      "undetermined": {
+        "undetermined": 75
+      }
+    },
+    "breaker_confusion": {
+      "normal": {
+        "normal": 653
+      },
+      "slow": {
+        "slow": 69
+      },
+      "not applicable": {
+        "not applicable": 149
+      },
+      "failed": {
+        "failed: current interrupted by other breakers while 52A stayed closed": 82
+      },
+      "undetermined": {
+        "undetermined": 47
+      }
+    },
+    "per_anomaly": {
+      "wrong_curve": {
+        "n": 71,
+        "relay_ok": 71,
+        "breaker_ok": 71
+      },
+      "none": {
+        "n": 581,
+        "relay_ok": 581,
+        "breaker_ok": 581
+      },
+      "slow_breaker": {
+        "n": 69,
+        "relay_ok": 69,
+        "breaker_ok": 69
+      },
+      "failed_to_trip": {
+        "n": 61,
+        "relay_ok": 61,
+        "breaker_ok": 61
+      },
+      "breaker_failure": {
+        "n": 87,
+        "relay_ok": 87,
+        "breaker_ok": 87
+      },
+      "slow_relay": {
+        "n": 59,
+        "relay_ok": 59,
+        "breaker_ok": 59
+      },
+      "reverse_trip": {
+        "n": 72,
+        "relay_ok": 72,
+        "breaker_ok": 72
+      }
+    },
+    "failures": [
+      {
+        "id": "ev0221",
+        "anomaly": "breaker_failure",
+        "variant": "inception_before_record",
+        "problems": [
+          "direction forward->undetermined (abstained)"
+        ]
+      },
+      {
+        "id": "ev0843",
+        "anomaly": "slow_breaker",
+        "variant": "inception_before_record",
+        "problems": [
+          "direction forward->undetermined (abstained)"
+        ]
+      }
+    ]
+  },
+  "narrator": null,
+  "power": null,
+  "validator_redteam": {
+    "events": 1000,
+    "clean_sentences": 7851,
+    "clean_rejected": 0,
+    "by_kind": {
+      "flipped comparison": {
+        "injected": 895,
+        "caught": 895,
+        "rate": 1.0
+      },
+      "flipped direction": {
+        "injected": 1166,
+        "caught": 1166,
+        "rate": 1.0
+      },
+      "flipped verdict": {
+        "injected": 708,
+        "caught": 708,
+        "rate": 1.0
+      },
+      "invented number": {
+        "injected": 7851,
+        "caught": 7851,
+        "rate": 1.0
+      },
+      "number on the wrong subject": {
+        "injected": 1392,
+        "caught": 1392,
+        "rate": 1.0
+      },
+      "spelled-out number": {
+        "injected": 6952,
+        "caught": 6952,
+        "rate": 1.0
+      },
+      "value of a different fact": {
+        "injected": 6848,
+        "caught": 6804,
+        "rate": 0.9935747663551402
+      },
+      "value of a different fact, no citations": {
+        "injected": 6848,
+        "caught": 6435,
+        "rate": 0.9396904205607477
+      },
+      "wrong digit": {
+        "injected": 6952,
+        "caught": 6952,
+        "rate": 1.0
+      },
+      "wrong fault type": {
+        "injected": 1000,
+        "caught": 1000,
+        "rate": 1.0
+      },
+      "wrong unit": {
+        "injected": 6952,
+        "caught": 6952,
+        "rate": 1.0
+      }
+    },
+    "injected": 47564,
+    "caught": 47107,
+    "misses": [
+      {
+        "id": "ev0001",
+        "kind": "value of a different fact, no citations",
+        "text": "With the settings on file, 50P1 should have operated after 12.50 ms."
+      },
+      {
+        "id": "ev0001",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 29.17 ms (2.50 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0005",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 29.17 ms (2.50 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0007",
+        "kind": "value of a different fact, no citations",
+        "text": "The record shows a C-phase-to-ground fault (CG) that began 1204.2 ms before the record trigger."
+      },
+      {
+        "id": "ev0008",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 37.50 ms (45.50 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0013",
+        "kind": "value of a different fact, no citations",
+        "text": "The record shows a C-A phase-to-phase fault (CA) that began 308.3 ms before the record trigger."
+      },
+      {
+        "id": "ev0013",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 33.33 ms (2.87 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0014",
+        "kind": "value of a different fact, no citations",
+        "text": "With the settings on file, 51P1 should have operated after 1148.96 ms (U4 curve, time dial 15.00, 11.83 times pickup)."
+      },
+      {
+        "id": "ev0016",
+        "kind": "value of a different fact, no citations",
+        "text": "With the settings on file, 51G1 should have operated after 475.52 ms (C3 curve, time dial 0.90, 17.59 times pickup)."
+      },
+      {
+        "id": "ev0017",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 28.12 ms (2.56 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0023",
+        "kind": "value of a different fact, no citations",
+        "text": "The record shows a C-A phase-to-phase fault (CA) that began 232.3 ms before the record trigger."
+      },
+      {
+        "id": "ev0023",
+        "kind": "value of a different fact",
+        "text": "The breaker cleared its last pole 33.33 ms (2.12 cycles) after the trip, phase A first; breaker verdict: normal."
+      },
+      {
+        "id": "ev0023",
+        "kind": "value of a different fact, no citations",
+        "text": "The breaker cleared its last pole 33.33 ms (2.12 cycles) after the trip, phase A first; breaker verdict: normal."
+      },
+      {
+        "id": "ev0023",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 35.42 ms (3.12 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0026",
+        "kind": "value of a different fact, no citations",
+        "text": "The record shows a C-A phase-to-phase fault (CA) that began 762.5 ms after the record trigger."
+      },
+      {
+        "id": "ev0026",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 43.75 ms (33.62 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0027",
+        "kind": "value of a different fact, no citations",
+        "text": "The breaker cleared its last pole 506.25 ms (2.00 cycles) after the trip, phase B first; breaker verdict: normal."
+      },
+      {
+        "id": "ev0031",
+        "kind": "value of a different fact, no citations",
+        "text": "The breaker cleared its last pole 523.96 ms (2.00 cycles) after the trip, phase A first; breaker verdict: normal."
+      },
+      {
+        "id": "ev0033",
+        "kind": "value of a different fact, no citations",
+        "text": "With the settings on file, 51P1 should have operated after 780.21 ms (U2 curve, time dial 3.89, 18.51 times pickup)."
+      },
+      {
+        "id": "ev0035",
+        "kind": "value of a different fact, no citations",
+        "text": "Verdict: the relay operated as expected (actual minus expected 217.71 ms, allowed 35.84 ms)."
+      },
+      {
+        "id": "ev0035",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 40.62 ms (15.50 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0036",
+        "kind": "value of a different fact, no citations",
+        "text": "The fault lasted 37.50 ms (51.00 cycles); local breaker interrupted the current."
+      },
+      {
+        "id": "ev0037",
+        "kind": "value of a different fact, no citations",
+        "text": "The breaker cleared its last pole 15.62 ms (1.81 cycles) after the trip, phase B first; breaker verdict: normal."
+      },
+      {
+        "id": "ev0038",
+        "kind": "value of a different fact, no citations",
+        "text": "Verdict: the relay operated slower than its settings predict (actual minus expected 270.29 ms, allowed 38.51 ms)."
+      },
+      {
+        "id": "ev0039",
+        "kind": "value of a different fact, no citations",
+        "text": "The breaker cleared its last pole 12.50 ms (7.97 cycles) after the trip, phase C first; breaker verdict: slow."
+      }
+    ]
+  }
+}

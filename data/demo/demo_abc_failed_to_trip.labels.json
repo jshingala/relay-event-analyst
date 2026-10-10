@@ -1,0 +1,71 @@
+{
+  "id": "demo_abc_failed_to_trip",
+  "fault_type": "ABC",
+  "direction": "forward",
+  "location_pu": 0.3436,
+  "r_phase_ohm": 0.457,
+  "r_ground_ohm": 0.0,
+  "anomaly": "failed_to_trip",
+  "variant": "normal",
+  "inception_in_record": true,
+  "inception_ms": 69.3117,
+  "trip_ms": null,
+  "relay_tripped": false,
+  "pole_clear_ms": [
+    null,
+    null,
+    null
+  ],
+  "removal_clear_ms": [
+    582.6761,
+    579.8982,
+    577.1203
+  ],
+  "fault_end_ms": 582.6761,
+  "end_cause": "other_breakers",
+  "expected_closed_form": {
+    "element": "50P1",
+    "ms": 0.0
+  },
+  "field_closed_form": {
+    "element": "50P1",
+    "ms": 0.0
+  },
+  "expected_relay_verdict": "failed to trip",
+  "expected_breaker_verdict": "not applicable",
+  "steady_secondary": {
+    "i_rms_a": [
+      23.1549,
+      23.1549,
+      23.1549
+    ],
+    "v_rms_v": [
+      37.317,
+      37.317,
+      37.317
+    ],
+    "i_max_a": 23.1549,
+    "three_i0_a": 0.0,
+    "i2_a": 0.0
+  },
+  "record": {
+    "samples_per_cycle": 16,
+    "sample_rate_hz": 960.0,
+    "f_actual_hz": 59.9967,
+    "format": "BINARY",
+    "primary_scaling": false,
+    "channel_names": [
+      "IA",
+      "IB",
+      "IC",
+      "VA",
+      "VB",
+      "VC"
+    ],
+    "trip_channel": "TRIP",
+    "duration_ms": 739.1699,
+    "noise_fraction": 0.00292,
+    "dc_tau_ms": 23.239
+  },
+  "settings_file": "demo_abc_failed_to_trip.settings.txt"
+}

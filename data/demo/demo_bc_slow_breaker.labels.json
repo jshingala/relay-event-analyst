@@ -1,0 +1,71 @@
+{
+  "id": "demo_bc_slow_breaker",
+  "fault_type": "BC",
+  "direction": "forward",
+  "location_pu": 0.1478,
+  "r_phase_ohm": 1.344,
+  "r_ground_ohm": 0.0,
+  "anomaly": "slow_breaker",
+  "variant": "normal",
+  "inception_in_record": true,
+  "inception_ms": 127.2931,
+  "trip_ms": 1072.4418,
+  "relay_tripped": true,
+  "pole_clear_ms": [
+    1194.5922,
+    1193.9031,
+    1193.8841
+  ],
+  "removal_clear_ms": [
+    null,
+    null,
+    null
+  ],
+  "fault_end_ms": 1194.5922,
+  "end_cause": "local_breaker",
+  "expected_closed_form": {
+    "element": "51P1",
+    "ms": 934.8648
+  },
+  "field_closed_form": {
+    "element": "51P1",
+    "ms": 934.8648
+  },
+  "expected_relay_verdict": "operated as expected",
+  "expected_breaker_verdict": "slow",
+  "steady_secondary": {
+    "i_rms_a": [
+      0.8237,
+      30.4346,
+      29.6393
+    ],
+    "v_rms_v": [
+      66.396,
+      46.763,
+      28.754
+    ],
+    "i_max_a": 30.4346,
+    "three_i0_a": 0.0,
+    "i2_a": 17.2391
+  },
+  "record": {
+    "samples_per_cycle": 32,
+    "sample_rate_hz": 1920.0,
+    "f_actual_hz": 60.0423,
+    "format": "BINARY",
+    "primary_scaling": true,
+    "channel_names": [
+      "IA",
+      "IB",
+      "IC",
+      "VA",
+      "VB",
+      "VC"
+    ],
+    "trip_channel": "TRIP",
+    "duration_ms": 1304.0832,
+    "noise_fraction": 0.0027,
+    "dc_tau_ms": 25.237
+  },
+  "settings_file": "demo_bc_slow_breaker.settings.txt"
+}

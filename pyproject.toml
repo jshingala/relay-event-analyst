@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "relay-event-analyst"
+version = "0.1.0"
+description = "Offline relay event analysis: a C++ physics core reads COMTRADE, a local LLM explains it, and a validator rejects any number the core did not produce."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jenil Shingala" }]
+keywords = ["COMTRADE", "protective relay", "power systems", "Jetson", "Ollama", "LLM"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C++",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Scientific/Engineering",
+]
+# The analyst itself uses only the standard library. Extras add the generator and PDF text.
+dependencies = []
+
+[project.optional-dependencies]
+synth = ["numpy>=1.24"]
+pdf = ["pypdf>=4.0"]
+dev = ["pytest>=7.4", "numpy>=1.24"]
+
+[project.scripts]
+rea = "rea.cli:main"
+rea-synth = "rea.synth.cli:main"
+rea-eval = "rea.evaluation.run:main"
+rea-power = "rea.evaluation.power:main"
+rea-real = "rea.evaluation.real_events:main"
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["python"]
+addopts = "-q"
