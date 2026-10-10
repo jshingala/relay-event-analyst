@@ -603,6 +603,28 @@ def _deviation_problems(text: str, claims_at: list[tuple[int, int, Claim]], shee
     return problems
 
 
+# "The local breaker interrupted the current": "breaker" (not "other breakers") and an
+# interrupting verb after it in the same sentence.
+_LOCAL_INTERRUPT = re.compile(r"(?<!other )(?<!another )(?<!remote )\bbreaker\b(?!s)[^.;]{0,40}?"
+                              r"\b(interrupt\w*|clear(?:ed|ing|s)?|extinguish\w*)\b", re.I)
+_NEGATED = re.compile(r"\b(?:not|never|no|without|failed)\b|n't\b", re.I)
+
+
+def _end_cause_problems(text: str, sheet: FactSheet) -> list[str]:
+    """Who ended the fault current must agree with fault.end_cause: when other breakers
+    (or nothing local) ended it, the local breaker did not interrupt it."""
+    cause = sheet.value("fault.end_cause")
+    if not isinstance(cause, str) or cause.startswith("local breaker"):
+        return []
+    for m in _LOCAL_INTERRUPT.finditer(text):
+        verb_clause = clause_around(text, m.start(1), m.end(1))
+        if _NEGATED.search(text[m.start():m.start(1)]) or _NEGATED.search(verb_clause) \
+                or re.search(r"\b(?:other|another|remote)\b", verb_clause, re.I):
+            continue
+        return [f"says the local breaker interrupted the current, but the core found: {cause}"]
+    return []
+
+
 _NEGATIVE = re.compile(r"\bnegative\b(?![- ]sequence)", re.I)
 _POSITIVE = re.compile(r"\bpositive\b(?![- ]sequence)", re.I)
 
@@ -733,6 +755,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
         chk.reasons += _verdict_problems(text, sheet)
         chk.reasons += _comparison_problems(text, claims_at)
         chk.reasons += _deviation_problems(text, claims_at, sheet)
+        chk.reasons += _end_cause_problems(text, sheet)
         if strict:
             chk.reasons += _breaker_time_problems(text, spans, values)
         chk.reasons += _sign_word_problems(text, chk, sheet)

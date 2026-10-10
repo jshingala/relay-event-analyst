@@ -323,3 +323,17 @@ def test_52a_opening_is_not_the_interrupting_time(bg_sheet, text, cited, good):
 ])
 def test_a_difference_from_the_expected_time_must_be_the_deviation(bg_sheet, text, cited, good):
     assert ok(bg_sheet, text, cited)[0] is good
+
+
+@pytest.mark.parametrize("text, good", [
+    # abc_sheet: the current was interrupted by other breakers while the local 52A stayed closed.
+    ("The fault current ended when the local 52A breaker stayed closed, interrupting the current.", False),
+    ("The local breaker interrupted the fault current.", False),
+    ("The breaker cleared the fault.", False),
+    ("The fault was cleared by other breakers while the local breaker stayed closed.", True),
+    ("The local breaker did not interrupt the current.", True),
+    ("The breaker never cleared the fault; other breakers interrupted the current.", True),
+    ("Breaker verdict: not applicable.", True),
+])
+def test_local_breaker_claims_follow_the_end_cause(abc_sheet, text, good):
+    assert ok(abc_sheet, text, ["fault.end_cause"])[0] is good
