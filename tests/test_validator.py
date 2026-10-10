@@ -356,3 +356,17 @@ def test_a_breaker_verb_is_not_a_relay_verdict(cag_slow_sheet):
     assert ok(sheet, "The relay tripped, and the breaker performed normally.", ["assessment.breaker"])[0]
     assert not ok(sheet, "The relay performed normally.", ["assessment.relay"])[0]
     assert not ok(sheet, "The relay tripped and performed as expected.", ["assessment.relay"])[0]
+
+
+@pytest.mark.parametrize("text, good", [
+    # bg_sheet: the fault began 3.56 ms before the trigger (fault.inception_from_trigger_ms = -3.56).
+    ("Fault detected at -3.56 ms, fault type is B-phase-to-ground.", True),
+    ("The fault started at -3.56 ms.", True),
+    ("Fault detected at -3.57 ms.", False),  # not the core's value
+    ("Fault detected at -2.28 ms.", False),  # that is the deviation
+    ("Fault detected at 3.56 ms.", False),  # unsigned: from what?
+    ("Fault detected at -3.56 ms before the trigger.", False),  # double negative
+    ("The relay tripped at -3.56 ms.", False),  # not a start time
+])
+def test_a_negative_start_time_is_relative_to_the_trigger(bg_sheet, text, good):
+    assert ok(bg_sheet, text, ["fault.detected", "fault.type"])[0] is good

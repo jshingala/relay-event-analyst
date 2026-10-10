@@ -656,6 +656,16 @@ def _sign_word_problems(text: str, chk: SentenceCheck, sheet: FactSheet) -> list
 # --------------------------------------------------------------------------- entry point
 
 
+_STARTED_AT = re.compile(r"\b(?:detect\w*|incept\w*|began|begun|start\w*|occurr\w*)\s+at\s*$", re.I)
+
+
+def _starts_before_trigger(claim: Claim, cands: list[str], before: str) -> bool:
+    """'Fault detected at -3.07 ms': a negative start time only exists relative to the
+    trigger (time zero of the record's time axis), so it binds to that fact."""
+    return (claim.signed and claim.value < 0 and "fault.inception_from_trigger_ms" in cands
+            and claim.unit in ("ms", "msec", "millisecond", "milliseconds") and bool(_STARTED_AT.search(before)))
+
+
 def _bind(chk: SentenceCheck, spans: list, start: int, end: int, claim: Claim, fact_id: str, via: str) -> None:
     chk.bind(claim.token, fact_id, via)
     spans.append((start, end, claim, fact_id))
@@ -698,6 +708,9 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
                 used = {f for _, f, _ in chk.bindings}
                 _bind(chk, spans, start, end, claim, next((c for c in cited_hits if c not in used), cited_hits[0]),
                       "cited")
+                continue
+            if _starts_before_trigger(claim, cands, text[:start]):
+                _bind(chk, spans, start, end, claim, "fault.inception_from_trigger_ms", "context")
                 continue
             # The sentence cites facts of this kind (same dimension) but not this one. A
             # related value could be standing in for a cited one (the expected time quoted
