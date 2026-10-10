@@ -440,8 +440,10 @@ def _verdict_problems(text: str, sheet: FactSheet) -> list[str]:
     verdict = sheet.value("assessment.relay")
     good = ("operated as expected", "correctly did not trip")
     if verdict and verdict not in good and verdict != "undetermined":
-        if re.search(r"\brelay\b[^.;]{0,30}?\b(?:operated|performed|tripped|worked|responded|behaved)\s+"
-                     r"(?:as expected|correctly|properly|normally|as it should)\b", text, re.I):
+        # The verb must belong to the relay: "the relay tripped, and the breaker performed
+        # normally" says nothing about how the relay performed.
+        if re.search(r"\brelay\b(?:(?!\bbreaker\b)[^.;]){0,30}?\b(?:operated|performed|tripped|worked|responded|"
+                     r"behaved)\s+(?:as expected|correctly|properly|normally|as it should)\b", text, re.I):
             problems.append(f"says the relay performed correctly, but the core verdict is '{verdict}'")
     if verdict == "operated as expected" and re.search(
             r"\b(?:misoperat\w*|too slow|too fast|failed to trip|outside (?:its|the) (?:directional )?zone)\b",

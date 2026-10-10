@@ -349,3 +349,10 @@ def test_local_breaker_claims_follow_the_end_cause(abc_sheet, text, good):
 ])
 def test_other_breakers_claims_follow_the_end_cause(bg_sheet, text, good):
     assert ok(bg_sheet, text, ["fault.end_cause"])[0] is good
+
+
+def test_a_breaker_verb_is_not_a_relay_verdict(cag_slow_sheet):
+    sheet = cag_slow_sheet  # relay slower than expected, breaker normal
+    assert ok(sheet, "The relay tripped, and the breaker performed normally.", ["assessment.breaker"])[0]
+    assert not ok(sheet, "The relay performed normally.", ["assessment.relay"])[0]
+    assert not ok(sheet, "The relay tripped and performed as expected.", ["assessment.relay"])[0]
