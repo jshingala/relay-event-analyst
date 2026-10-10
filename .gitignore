@@ -26,3 +26,6 @@ eval/real/converted/
 
 # macOS Finder metadata
 .DS_Store
+
+# an interrupted narration run (rea-eval --resume continues it)
+eval/**/narration.partial.jsonl
