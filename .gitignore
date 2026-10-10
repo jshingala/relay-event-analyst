@@ -23,3 +23,6 @@ logs/
 # SEL example event files (downloaded by rea-real --fetch) and their conversions: not ours to redistribute
 data/real/
 eval/real/converted/
+
+# macOS Finder metadata
+.DS_Store
