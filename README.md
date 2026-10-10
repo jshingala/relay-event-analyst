@@ -60,7 +60,7 @@ and breaker problems, 8/16/32 samples per cycle, measurement noise, frequency of
 | Trip time error | max 2.08 ms |
 | Expected operate time vs closed form | median 0.65 cycles, max 1.05 cycles |
 | Fault current magnitude error | p95 1.25%, max 4.05% |
-| Core time per event | median 2.7 ms including process start |
+| Core time per event | median 3.5 ms including process start (4-CPU x86) |
 
 A second set (seed 2026) gives 99.9% fault type and the same 100% on verdicts, and a fresh 200-event set built
 from the packaged zip (seed 11) gives 99.5% fault type (one BG read as BCG) and 100% on verdicts. Every miss in

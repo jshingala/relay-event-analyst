@@ -99,6 +99,7 @@ For each event the template narrative (correct by construction) is copied, and o
 injected per copy: wrong digit, wrong unit, invented number, spelled-out number, wrong fault type,
 flipped direction, flipped verdict, flipped comparison ("below" <-> "above" the threshold), a
 number moved to the wrong subject, the value of a different fact (with the original citations),
-and the same without citations. On 1,000 events: 47,564 injected errors, 99.0% caught, and 0 of
-7,851 correct sentences rejected. Every kind is caught 100% of the time except the value of a
+the same without citations, and three errors copied from the hand audit (the 52A opening time as
+the interrupting time, the operate time as the deviation, the wrong breaker ending the fault). On
+1,000 events: 49,940 injected errors, 99.1% caught, and 0 of 7,851 correct sentences rejected. Every kind is caught 100% of the time except the value of a
 different fact (99.4% with citations, 94.0% without). Details are in `eval/results/RESULTS.md`.
