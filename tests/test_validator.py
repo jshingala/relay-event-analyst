@@ -286,3 +286,25 @@ def test_direction_claims_when_the_core_could_not_decide():
     assert not ok(sheet, "The fault was non-directional.")[0]
     assert ok(sheet, "The overcurrent elements were non-directional.")[0]
     assert ok(sheet, "The fault direction is unknown, and the overcurrent elements are non-directional.")[0]
+
+
+# ---------------------------------------------------------------- breaker times
+
+
+@pytest.mark.parametrize("text, cited, good", [
+    # bg_sheet: 52A opened 37.50 ms after the trip; the last pole cleared at 41.67 ms.
+    ("Breaker interrupted the fault current 37.50 ms after the trip.",
+     ["breaker.interrupt_ms", "breaker.52a_open_after_trip_ms"], False),
+    ("The fault ended when the breaker interrupted the current 37.50 ms after the trip, which opened the 52A contact.",
+     ["breaker.52a_open_after_trip_ms"], False),
+    ("Breaker interrupted the fault current 41.67 ms after the trip.", ["breaker.interrupt_ms"], True),
+    ("The 52A contact opened 37.50 ms after the trip, and the breaker interrupted the current 41.67 ms after it.",
+     ["breaker.52a_open_after_trip_ms", "breaker.interrupt_ms"], True),
+    ("The 52A contact opened 41.67 ms after the trip.", ["breaker.52a_open_after_trip_ms", "breaker.interrupt_ms"],
+     False),
+    ("The 52A contact opened 37.50 ms after the trip.", ["breaker.52a_open_after_trip_ms"], True),
+    # 37.50 ms is also when phase B cleared: fine when the clause names the pole.
+    ("Phase B cleared 37.50 ms after the trip.", ["breaker.52a_open_after_trip_ms"], True),
+])
+def test_52a_opening_is_not_the_interrupting_time(bg_sheet, text, cited, good):
+    assert ok(bg_sheet, text, cited)[0] is good

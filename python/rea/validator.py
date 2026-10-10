@@ -534,6 +534,46 @@ def _comparison_problems(text: str, claims_at: list[tuple[int, int, Claim]]) -> 
     return problems
 
 
+# Clause boundaries for checks that read the words around one number.
+_CLAUSE_BREAK = re.compile(r"[;,()]|\s(?:and|but|while|whereas|which|when)\s", re.I)
+
+
+def clause_around(text: str, start: int, end: int) -> str:
+    """The clause of the sentence that holds text[start:end]."""
+    lo = max((m.end() for m in _CLAUSE_BREAK.finditer(text, 0, start)), default=0)
+    m = _CLAUSE_BREAK.search(text, end)
+    return text[lo:m.start() if m else len(text)]
+
+
+def _matches_fact(claim: Claim, values: list[_FactValue], fact_id: str) -> bool:
+    return bool(candidates(claim, [v for v in values if v.fact_id == fact_id]))
+
+
+_INTERRUPT_WORDS = re.compile(r"\b(?:interrupt\w*|clear\w*|extinguish\w*|last pole)\b", re.I)
+_52A_WORDS = re.compile(r"\b(?:52a|contact|auxiliary|status)\b", re.I)
+
+
+def _breaker_time_problems(text: str, spans: list, values: list[_FactValue]) -> list[str]:
+    """The 52A contact opening and the current interruption are different breaker times,
+    both measured from the trip: a clause about one must not quote the other."""
+    problems = []
+    for start, end, claim, fid in spans:
+        clause = clause_around(text, start, end)
+        if fid == "breaker.52a_open_after_trip_ms" and _INTERRUPT_WORDS.search(clause) \
+                and not _52A_WORDS.search(clause):
+            if _matches_fact(claim, values, "breaker.interrupt_ms") or any(
+                    _matches_fact(claim, values, f"breaker.clear_{p}_after_trip_ms")
+                    and mentions_subject(f"breaker.clear_{p}_after_trip_ms", clause) for p in "abc"):
+                continue  # the same value is also the interrupting time (or the named pole's)
+            problems.append(f"quotes the 52A opening time {claim.token} as the time the current was interrupted")
+        elif (fid == "breaker.interrupt_ms" or fid.startswith("breaker.clear_")) and _52A_WORDS.search(clause) \
+                and re.search(r"\bopen", clause, re.I) and not _INTERRUPT_WORDS.search(clause):
+            if _matches_fact(claim, values, "breaker.52a_open_after_trip_ms"):
+                continue
+            problems.append(f"quotes the interrupting time {claim.token} as the 52A opening time")
+    return problems
+
+
 _NEGATIVE = re.compile(r"\bnegative\b(?![- ]sequence)", re.I)
 _POSITIVE = re.compile(r"\bpositive\b(?![- ]sequence)", re.I)
 
@@ -555,6 +595,11 @@ def _sign_word_problems(text: str, chk: SentenceCheck, sheet: FactSheet) -> list
 # --------------------------------------------------------------------------- entry point
 
 
+def _bind(chk: SentenceCheck, spans: list, start: int, end: int, claim: Claim, fact_id: str, via: str) -> None:
+    chk.bind(claim.token, fact_id, via)
+    spans.append((start, end, claim, fact_id))
+
+
 def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: bool = True,
              require_terminal: bool = False) -> ValidationResult:
     """Check (sentence, cited fact ids) pairs against the fact sheet."""
@@ -569,26 +614,29 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
             continue
         known = [c for c in cited if c in sheet]
         chk = SentenceCheck(text=text, ok=True, fact_ids=known)
+        spans: list[tuple[int, int, Claim, str]] = []  # (start, end, claim, bound fact) per traced number
         unknown = [c for c in cited if c not in sheet]
         if unknown:
             chk.notes.append("ignored unknown fact ids: " + ", ".join(unknown))
 
         cited_dims = {_fact_dim(sheet.get(c)) for c in known if sheet.get(c).kind == "number"}
-        for claim in extract_claims(text):
+        claims_at = extract_claims_at(text)
+        for start, end, claim in claims_at:
             chk.numbers.append(claim.token)
             cands = candidates(claim, values)
             if not cands:
                 chk.unsupported.append(claim.token)
                 continue
             if not strict:
-                chk.bind(claim.token, cands[0], "any")
+                _bind(chk, spans, start, end, claim, cands[0], "any")
                 continue
             cited_hits = [c for c in cands if c in known]
             if cited_hits:
                 # Two cited facts can share a value (3I0 equals the faulted phase current
                 # when there is no load): give each claim a cited fact not used yet.
                 used = {f for _, f, _ in chk.bindings}
-                chk.bind(claim.token, next((c for c in cited_hits if c not in used), cited_hits[0]), "cited")
+                _bind(chk, spans, start, end, claim, next((c for c in cited_hits if c not in used), cited_hits[0]),
+                      "cited")
                 continue
             # The sentence cites facts of this kind (same dimension) but not this one. A
             # related value could be standing in for a cited one (the expected time quoted
@@ -599,7 +647,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
             if (dim == "any" and cited_dims) or dim in cited_dims:
                 hit = next((c for c in cands if is_specific(c) and mentions_subject(c, text)), None)
                 if hit is not None:
-                    chk.bind(claim.token, hit, "context")
+                    _bind(chk, spans, start, end, claim, hit, "context")
                     continue
                 chk.unsupported.append(claim.token)
                 chk.notes.append(f"{claim.token} equals {cands[0]}, which the sentence does not cite, while it "
@@ -607,7 +655,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
                 continue
             hit = next((c for c in cands if mentions_subject(c, text)), None)
             if hit is not None:
-                chk.bind(claim.token, hit, "context")
+                _bind(chk, spans, start, end, claim, hit, "context")
                 continue
             chk.unsupported.append(claim.token)
             chk.notes.append(f"{claim.token} equals {cands[0]} but the sentence neither cites nor mentions it")
@@ -654,7 +702,9 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
                 and not re.search(r"element|setting|overcurrent|supervision|\bDIR\b|\b5[01][PG]?\d?\b", text, re.I)):
             chk.reasons.append("calls the fault non-directional; only the DIR setting of the overcurrent elements is")
         chk.reasons += _verdict_problems(text, sheet)
-        chk.reasons += _comparison_problems(text, extract_claims_at(text))
+        chk.reasons += _comparison_problems(text, claims_at)
+        if strict:
+            chk.reasons += _breaker_time_problems(text, spans, values)
         chk.reasons += _sign_word_problems(text, chk, sheet)
         if require_terminal and not re.search(r"[.!?][\"')\]]?$", text):
             chk.reasons.append("incomplete sentence")
