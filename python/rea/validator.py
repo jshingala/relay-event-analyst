@@ -574,6 +574,35 @@ def _breaker_time_problems(text: str, spans: list, values: list[_FactValue]) -> 
     return problems
 
 
+# "0.75 cycles later than expected": the number is the difference from the expected time.
+_THAN_EXPECTED = re.compile(r"\s*(?:ms|msec|milliseconds?|s|sec|seconds?|cycles?|cyc)?\s+(?:later|earlier|slower|faster|"
+                            r"quicker|sooner)\s+than\s+(?:the\s+|its\s+)?(?:expected|predicted|settings?|curve)\b", re.I)
+
+
+def _deviation_problems(text: str, claims_at: list[tuple[int, int, Claim]], sheet: FactSheet) -> list[str]:
+    """A number written as how much later or earlier than expected the relay was must be
+    the deviation (actual minus expected), in ms or in cycles, not another time."""
+    dev = sheet.value("assessment.deviation_ms")
+    hz = sheet.value("record.nominal_hz")
+    if not isinstance(dev, (int, float)):
+        return []
+    problems = []
+    for _start, end, claim in claims_at:
+        if not _THAN_EXPECTED.match(text, end):
+            continue
+        if claim.unit is not None and _UNITS[claim.unit][0] == "cycles":
+            ok = isinstance(hz, (int, float)) and _close(claim, dev * hz / 1000.0)
+        elif claim.unit is None or _UNITS[claim.unit][0] == "time":
+            scale = _UNITS[claim.unit][1] if claim.unit else 1e-3
+            ok = _close(claim, dev * 1e-3 / scale)
+        else:
+            ok = False
+        if not ok:
+            problems.append(f"gives {claim.token} as the difference from the expected time, but the core's "
+                            f"deviation is {sheet.get('assessment.deviation_ms').render()}")
+    return problems
+
+
 _NEGATIVE = re.compile(r"\bnegative\b(?![- ]sequence)", re.I)
 _POSITIVE = re.compile(r"\bpositive\b(?![- ]sequence)", re.I)
 
@@ -703,6 +732,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
             chk.reasons.append("calls the fault non-directional; only the DIR setting of the overcurrent elements is")
         chk.reasons += _verdict_problems(text, sheet)
         chk.reasons += _comparison_problems(text, claims_at)
+        chk.reasons += _deviation_problems(text, claims_at, sheet)
         if strict:
             chk.reasons += _breaker_time_problems(text, spans, values)
         chk.reasons += _sign_word_problems(text, chk, sheet)

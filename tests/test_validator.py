@@ -308,3 +308,18 @@ def test_direction_claims_when_the_core_could_not_decide():
 ])
 def test_52a_opening_is_not_the_interrupting_time(bg_sheet, text, cited, good):
     assert ok(bg_sheet, text, cited)[0] is good
+
+
+@pytest.mark.parametrize("text, cited, good", [
+    # bg_sheet: operated at 603.13 ms (36.19 cycles), expected 605.40 ms, deviation -2.28 ms.
+    ("The relay operated 2.28 ms earlier than expected.", ["assessment.deviation_ms"], True),
+    ("The relay operated 2.28 ms faster than its settings predict.", ["assessment.deviation_ms"], True),
+    ("Relay operated 603.13 ms after fault inception, 36.19 cycles earlier than expected.",
+     ["relay.operate_ms", "expected.operate_ms", "relay.operate_cycles"], False),
+    ("The relay operated 605.40 ms later than expected.", ["expected.operate_ms"], False),
+    # The difference written next to the expected time is checked by the comparison rule instead.
+    ("The relay operated 603.13 ms after inception, earlier than the expected 605.40 ms.",
+     ["relay.operate_ms", "expected.operate_ms"], True),
+])
+def test_a_difference_from_the_expected_time_must_be_the_deviation(bg_sheet, text, cited, good):
+    assert ok(bg_sheet, text, cited)[0] is good
