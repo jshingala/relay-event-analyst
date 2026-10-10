@@ -27,6 +27,10 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
      what the fact measures (a breaker time next to "breaker", a phase-B current next to "phase B").
    * A cited value quoted twice while another cited value of the same kind is never quoted is
      rejected.
+   * A negative time written right after "detected / began / started / occurred at" ("Fault
+     detected at -3.07 ms") binds to `fault.inception_from_trigger_ms` when it equals it: a start
+     time before zero only exists on the trigger's time axis. An unsigned value stays ambiguous
+     (from the trigger or from the first sample?) and needs a citation or the word "trigger".
 6. **Spelled-out quantities** ("three cycles") are rejected because they cannot be checked.
 
 `--lenient` keeps steps 1-4 and 6 and drops the binding.
@@ -40,7 +44,8 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
 * **Direction.** The opposite direction word. "Forward threshold" and similar threshold or element
   names are not claims.
 * **Relay.** "Did not trip" when the trip output asserted, or "tripped" when it did not. "Operated as
-  expected" when the verdict says otherwise. "Misoperation" when the verdict is as expected.
+  expected" when the verdict says otherwise (but "the relay tripped, and the breaker performed
+  normally" is about the breaker). "Misoperation" when the verdict is as expected.
   "Slower/faster than expected" with the wrong sign of the deviation.
 * **Breaker.** "Slow" when the breaker verdict is normal, or "normal" when it is slow.
 * **Who ended the fault current.** When `fault.end_cause` says other breakers interrupted it, or
