@@ -48,6 +48,11 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
   numbers sit in the sentence. Comparing quantities of different kinds ("-1.09 ohms, which is less
   than the pickup of 3.35 amperes") is rejected. Only the relay has an expected time, so a breaker
   time or a fault duration "slower than expected" is rejected too.
+* **The difference from the expected time.** A number written directly before "later / earlier /
+  slower / faster than expected" (or "than its settings", "than the curve") is the deviation, so it
+  must equal `assessment.deviation_ms` in magnitude. "12.50 ms after inception, 0.75 cycles later
+  than expected" is rejected when 0.75 cycles is the operate time itself. "X ms, earlier than the
+  expected Y ms" is left to the comparison rule above.
 * **z2 against the thresholds.** "Below the forward threshold" or "above the reverse threshold" must
   agree with the measured z2 and the Z2F/Z2R settings.
 * **What a time is measured from.** Breaker times are measured from the trip, so "the breaker
