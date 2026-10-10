@@ -43,6 +43,11 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
   expected" when the verdict says otherwise. "Misoperation" when the verdict is as expected.
   "Slower/faster than expected" with the wrong sign of the deviation.
 * **Breaker.** "Slow" when the breaker verdict is normal, or "normal" when it is slow.
+* **Who ended the fault current.** When `fault.end_cause` says other breakers interrupted it, or
+  that it returned to load before any local trip, a sentence in which the local breaker interrupts
+  or clears the current is rejected ("the local 52A breaker stayed closed, interrupting the
+  current"). When the local breaker interrupted it, crediting other breakers, self-clearing or a
+  return to load is rejected. Negated statements ("did not interrupt") are left alone.
 * **Comparisons.** "13.02 ms, faster than the expected 9.37 ms" is rejected because the numbers say
   otherwise. The same goes for slower, longer, higher, lower, below, above and exceeds, whenever both
   numbers sit in the sentence. Comparing quantities of different kinds ("-1.09 ohms, which is less
