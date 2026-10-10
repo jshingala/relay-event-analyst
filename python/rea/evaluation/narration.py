@@ -7,8 +7,11 @@ Two parts:
 * ``redteam_validator``: no model needed. Take the template narrative of each
   event (correct by construction), inject one known error per copy (wrong digit,
   wrong unit, number moved to the wrong subject, invented number, spelled-out
-  number, wrong fault type, flipped direction, flipped verdict) and measure how
-  many the validator catches, and how many correct sentences it wrongly rejects.
+  number, wrong fault type, flipped direction, flipped verdict, and three errors
+  the hand audit found the model making: the 52A opening time as the interrupting
+  time, the operate time as the deviation, the wrong breaker ending the fault) and
+  measure how many the validator catches, and how many correct sentences it
+  wrongly rejects.
 """
 
 from __future__ import annotations
@@ -325,6 +328,32 @@ def mutations(sentences: list[tuple[str, list[str]]], sheet: FactSheet, rng: ran
                 # Same error from a narrator that cites nothing: only context binding is left.
                 out.append(Mutation("value of a different fact, no citations", swapped, []))
             break
+    # The 52A opening time quoted as the interrupting time (both run from the trip), as the
+    # model did in the hand audit.
+    a52 = sheet.get("breaker.52a_open_after_trip_ms")
+    intr = sheet.get("breaker.interrupt_ms")
+    if a52 is not None and intr is not None and not a52.is_missing and not intr.is_missing \
+            and a52.display != intr.display:
+        text = f"The breaker interrupted the fault current {a52.render()} after the trip."
+        out.append(Mutation("52A opening as the interrupting time", text,
+                            ["breaker.interrupt_ms", "breaker.52a_open_after_trip_ms"]))
+    # The operate time in cycles quoted as the deviation from the expected time.
+    dev = sheet.get("assessment.deviation_ms")
+    cyc = sheet.get("relay.operate_cycles")
+    opm = sheet.get("relay.operate_ms")
+    if dev is not None and cyc is not None and opm is not None and isinstance(dev.value, (int, float)) \
+            and dev.value != 0 and not cyc.is_missing and not opm.is_missing:
+        word = "later" if dev.value > 0 else "earlier"
+        out.append(Mutation("operate time as the deviation",
+                            f"The relay operated {opm.render()} after the fault began, {cyc.render()} {word} "
+                            "than expected.",
+                            ["relay.operate_ms", "expected.operate_ms", "relay.operate_cycles"]))
+    # The wrong breaker credited with ending the fault current.
+    cause = sheet.value("fault.end_cause")
+    if isinstance(cause, str):
+        claim = ("The fault was cleared by other breakers." if cause.startswith("local breaker")
+                 else "The local breaker interrupted the fault current.")
+        out.append(Mutation("wrong end cause", claim, ["fault.end_cause"]))
     # Number moved to the wrong subject: the relay operate time replaced by the breaker time.
     op = sheet.get("relay.operate_ms")
     br = sheet.get("breaker.interrupt_ms")

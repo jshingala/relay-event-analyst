@@ -440,8 +440,10 @@ def _verdict_problems(text: str, sheet: FactSheet) -> list[str]:
     verdict = sheet.value("assessment.relay")
     good = ("operated as expected", "correctly did not trip")
     if verdict and verdict not in good and verdict != "undetermined":
-        if re.search(r"\brelay\b[^.;]{0,30}?\b(?:operated|performed|tripped|worked|responded|behaved)\s+"
-                     r"(?:as expected|correctly|properly|normally|as it should)\b", text, re.I):
+        # The verb must belong to the relay: "the relay tripped, and the breaker performed
+        # normally" says nothing about how the relay performed.
+        if re.search(r"\brelay\b(?:(?!\bbreaker\b)[^.;]){0,30}?\b(?:operated|performed|tripped|worked|responded|"
+                     r"behaved)\s+(?:as expected|correctly|properly|normally|as it should)\b", text, re.I):
             problems.append(f"says the relay performed correctly, but the core verdict is '{verdict}'")
     if verdict == "operated as expected" and re.search(
             r"\b(?:misoperat\w*|too slow|too fast|failed to trip|outside (?:its|the) (?:directional )?zone)\b",
@@ -534,6 +536,105 @@ def _comparison_problems(text: str, claims_at: list[tuple[int, int, Claim]]) -> 
     return problems
 
 
+# Clause boundaries for checks that read the words around one number.
+_CLAUSE_BREAK = re.compile(r"[;,()]|\s(?:and|but|while|whereas|which|when)\s", re.I)
+
+
+def clause_around(text: str, start: int, end: int) -> str:
+    """The clause of the sentence that holds text[start:end]."""
+    lo = max((m.end() for m in _CLAUSE_BREAK.finditer(text, 0, start)), default=0)
+    m = _CLAUSE_BREAK.search(text, end)
+    return text[lo:m.start() if m else len(text)]
+
+
+def _matches_fact(claim: Claim, values: list[_FactValue], fact_id: str) -> bool:
+    return bool(candidates(claim, [v for v in values if v.fact_id == fact_id]))
+
+
+_INTERRUPT_WORDS = re.compile(r"\b(?:interrupt\w*|clear\w*|extinguish\w*|last pole)\b", re.I)
+_52A_WORDS = re.compile(r"\b(?:52a|contact|auxiliary|status)\b", re.I)
+
+
+def _breaker_time_problems(text: str, spans: list, values: list[_FactValue]) -> list[str]:
+    """The 52A contact opening and the current interruption are different breaker times,
+    both measured from the trip: a clause about one must not quote the other."""
+    problems = []
+    for start, end, claim, fid in spans:
+        clause = clause_around(text, start, end)
+        if fid == "breaker.52a_open_after_trip_ms" and _INTERRUPT_WORDS.search(clause) \
+                and not _52A_WORDS.search(clause):
+            if _matches_fact(claim, values, "breaker.interrupt_ms") or any(
+                    _matches_fact(claim, values, f"breaker.clear_{p}_after_trip_ms")
+                    and mentions_subject(f"breaker.clear_{p}_after_trip_ms", clause) for p in "abc"):
+                continue  # the same value is also the interrupting time (or the named pole's)
+            problems.append(f"quotes the 52A opening time {claim.token} as the time the current was interrupted")
+        elif (fid == "breaker.interrupt_ms" or fid.startswith("breaker.clear_")) and _52A_WORDS.search(clause) \
+                and re.search(r"\bopen", clause, re.I) and not _INTERRUPT_WORDS.search(clause):
+            if _matches_fact(claim, values, "breaker.52a_open_after_trip_ms"):
+                continue
+            problems.append(f"quotes the interrupting time {claim.token} as the 52A opening time")
+    return problems
+
+
+# "0.75 cycles later than expected": the number is the difference from the expected time.
+_THAN_EXPECTED = re.compile(r"\s*(?:ms|msec|milliseconds?|s|sec|seconds?|cycles?|cyc)?\s+(?:later|earlier|slower|faster|"
+                            r"quicker|sooner)\s+than\s+(?:the\s+|its\s+)?(?:expected|predicted|settings?|curve)\b", re.I)
+
+
+def _deviation_problems(text: str, claims_at: list[tuple[int, int, Claim]], sheet: FactSheet) -> list[str]:
+    """A number written as how much later or earlier than expected the relay was must be
+    the deviation (actual minus expected), in ms or in cycles, not another time."""
+    dev = sheet.value("assessment.deviation_ms")
+    hz = sheet.value("record.nominal_hz")
+    if not isinstance(dev, (int, float)):
+        return []
+    problems = []
+    for _start, end, claim in claims_at:
+        if not _THAN_EXPECTED.match(text, end):
+            continue
+        if claim.unit is not None and _UNITS[claim.unit][0] == "cycles":
+            ok = isinstance(hz, (int, float)) and _close(claim, dev * hz / 1000.0)
+        elif claim.unit is None or _UNITS[claim.unit][0] == "time":
+            scale = _UNITS[claim.unit][1] if claim.unit else 1e-3
+            ok = _close(claim, dev * 1e-3 / scale)
+        else:
+            ok = False
+        if not ok:
+            problems.append(f"gives {claim.token} as the difference from the expected time, but the core's "
+                            f"deviation is {sheet.get('assessment.deviation_ms').render()}")
+    return problems
+
+
+# "The local breaker interrupted the current": "breaker" (not "other breakers") and an
+# interrupting verb after it in the same sentence.
+_LOCAL_INTERRUPT = re.compile(r"(?<!other )(?<!another )(?<!remote )\bbreaker\b(?!s)[^.;]{0,40}?"
+                              r"\b(interrupt\w*|clear(?:ed|ing|s)?|extinguish\w*)\b", re.I)
+_NEGATED = re.compile(r"\b(?:not|never|no|without|failed)\b|n't\b", re.I)
+_OTHER_CLEARED = re.compile(r"\b(?:other|another|remote|adjacent|upstream)\s+breakers?\b|\bself[- ]clear\w*|"
+                            r"\bbefore any (?:local )?trip\b|\bcleared by other protection\b|"
+                            r"\bwithout a local interruption\b|\breturned to (?:the )?load\b", re.I)
+
+
+def _end_cause_problems(text: str, sheet: FactSheet) -> list[str]:
+    """Who ended the fault current must agree with fault.end_cause: when other breakers
+    (or nothing local) ended it, the local breaker did not interrupt it."""
+    cause = sheet.value("fault.end_cause")
+    if not isinstance(cause, str):
+        return []
+    if cause.startswith("local breaker"):
+        m = _OTHER_CLEARED.search(text)
+        if m and not _NEGATED.search(clause_around(text, m.start(), m.end())):
+            return [f"says '{m.group(0)}', but the core found the local breaker interrupted the current"]
+        return []
+    for m in _LOCAL_INTERRUPT.finditer(text):
+        verb_clause = clause_around(text, m.start(1), m.end(1))
+        if _NEGATED.search(text[m.start():m.start(1)]) or _NEGATED.search(verb_clause) \
+                or re.search(r"\b(?:other|another|remote)\b", verb_clause, re.I):
+            continue
+        return [f"says the local breaker interrupted the current, but the core found: {cause}"]
+    return []
+
+
 _NEGATIVE = re.compile(r"\bnegative\b(?![- ]sequence)", re.I)
 _POSITIVE = re.compile(r"\bpositive\b(?![- ]sequence)", re.I)
 
@@ -555,6 +656,21 @@ def _sign_word_problems(text: str, chk: SentenceCheck, sheet: FactSheet) -> list
 # --------------------------------------------------------------------------- entry point
 
 
+_STARTED_AT = re.compile(r"\b(?:detect\w*|incept\w*|began|begun|start\w*|occurr\w*)\s+at\s*$", re.I)
+
+
+def _starts_before_trigger(claim: Claim, cands: list[str], before: str) -> bool:
+    """'Fault detected at -3.07 ms': a negative start time only exists relative to the
+    trigger (time zero of the record's time axis), so it binds to that fact."""
+    return (claim.signed and claim.value < 0 and "fault.inception_from_trigger_ms" in cands
+            and claim.unit in ("ms", "msec", "millisecond", "milliseconds") and bool(_STARTED_AT.search(before)))
+
+
+def _bind(chk: SentenceCheck, spans: list, start: int, end: int, claim: Claim, fact_id: str, via: str) -> None:
+    chk.bind(claim.token, fact_id, via)
+    spans.append((start, end, claim, fact_id))
+
+
 def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: bool = True,
              require_terminal: bool = False) -> ValidationResult:
     """Check (sentence, cited fact ids) pairs against the fact sheet."""
@@ -569,26 +685,32 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
             continue
         known = [c for c in cited if c in sheet]
         chk = SentenceCheck(text=text, ok=True, fact_ids=known)
+        spans: list[tuple[int, int, Claim, str]] = []  # (start, end, claim, bound fact) per traced number
         unknown = [c for c in cited if c not in sheet]
         if unknown:
             chk.notes.append("ignored unknown fact ids: " + ", ".join(unknown))
 
         cited_dims = {_fact_dim(sheet.get(c)) for c in known if sheet.get(c).kind == "number"}
-        for claim in extract_claims(text):
+        claims_at = extract_claims_at(text)
+        for start, end, claim in claims_at:
             chk.numbers.append(claim.token)
             cands = candidates(claim, values)
             if not cands:
                 chk.unsupported.append(claim.token)
                 continue
             if not strict:
-                chk.bind(claim.token, cands[0], "any")
+                _bind(chk, spans, start, end, claim, cands[0], "any")
                 continue
             cited_hits = [c for c in cands if c in known]
             if cited_hits:
                 # Two cited facts can share a value (3I0 equals the faulted phase current
                 # when there is no load): give each claim a cited fact not used yet.
                 used = {f for _, f, _ in chk.bindings}
-                chk.bind(claim.token, next((c for c in cited_hits if c not in used), cited_hits[0]), "cited")
+                _bind(chk, spans, start, end, claim, next((c for c in cited_hits if c not in used), cited_hits[0]),
+                      "cited")
+                continue
+            if _starts_before_trigger(claim, cands, text[:start]):
+                _bind(chk, spans, start, end, claim, "fault.inception_from_trigger_ms", "context")
                 continue
             # The sentence cites facts of this kind (same dimension) but not this one. A
             # related value could be standing in for a cited one (the expected time quoted
@@ -599,7 +721,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
             if (dim == "any" and cited_dims) or dim in cited_dims:
                 hit = next((c for c in cands if is_specific(c) and mentions_subject(c, text)), None)
                 if hit is not None:
-                    chk.bind(claim.token, hit, "context")
+                    _bind(chk, spans, start, end, claim, hit, "context")
                     continue
                 chk.unsupported.append(claim.token)
                 chk.notes.append(f"{claim.token} equals {cands[0]}, which the sentence does not cite, while it "
@@ -607,7 +729,7 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
                 continue
             hit = next((c for c in cands if mentions_subject(c, text)), None)
             if hit is not None:
-                chk.bind(claim.token, hit, "context")
+                _bind(chk, spans, start, end, claim, hit, "context")
                 continue
             chk.unsupported.append(claim.token)
             chk.notes.append(f"{claim.token} equals {cands[0]} but the sentence neither cites nor mentions it")
@@ -654,7 +776,11 @@ def validate(sentences: list[tuple[str, list[str]]], sheet: FactSheet, strict: b
                 and not re.search(r"element|setting|overcurrent|supervision|\bDIR\b|\b5[01][PG]?\d?\b", text, re.I)):
             chk.reasons.append("calls the fault non-directional; only the DIR setting of the overcurrent elements is")
         chk.reasons += _verdict_problems(text, sheet)
-        chk.reasons += _comparison_problems(text, extract_claims_at(text))
+        chk.reasons += _comparison_problems(text, claims_at)
+        chk.reasons += _deviation_problems(text, claims_at, sheet)
+        chk.reasons += _end_cause_problems(text, sheet)
+        if strict:
+            chk.reasons += _breaker_time_problems(text, spans, values)
         chk.reasons += _sign_word_problems(text, chk, sheet)
         if require_terminal and not re.search(r"[.!?][\"')\]]?$", text):
             chk.reasons.append("incomplete sentence")

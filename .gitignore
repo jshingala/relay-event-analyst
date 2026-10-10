@@ -23,3 +23,9 @@ logs/
 # SEL example event files (downloaded by rea-real --fetch) and their conversions: not ours to redistribute
 data/real/
 eval/real/converted/
+
+# macOS Finder metadata
+.DS_Store
+
+# an interrupted narration run (rea-eval --resume continues it)
+eval/**/narration.partial.jsonl

@@ -79,8 +79,9 @@ These are synthetic events from the included simulator, not field records.
   from the template.
 - Two patterns make up 4 of the 6 wrong sentences the validator kept: the 52A opening time quoted
   as the interrupting time (`ev0001`, `ev0003`, where the model cited both facts), and the operate
-  time in cycles quoted as the deviation from the expected time (`ev0005`, `ev0018`). Both are
-  mechanical and are candidates for new validator checks.
+  time in cycles quoted as the deviation from the expected time (`ev0005`, `ev0018`). Both now
+  have validator checks, added after this run (docs/validator.md), as does the "-X ms" opening
+  sentence. The kept/rejected columns below are the validator at the time of the run.
 
 ## Hand audit of the model's sentences
 

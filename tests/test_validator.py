@@ -286,3 +286,87 @@ def test_direction_claims_when_the_core_could_not_decide():
     assert not ok(sheet, "The fault was non-directional.")[0]
     assert ok(sheet, "The overcurrent elements were non-directional.")[0]
     assert ok(sheet, "The fault direction is unknown, and the overcurrent elements are non-directional.")[0]
+
+
+# ---------------------------------------------------------------- breaker times
+
+
+@pytest.mark.parametrize("text, cited, good", [
+    # bg_sheet: 52A opened 37.50 ms after the trip; the last pole cleared at 41.67 ms.
+    ("Breaker interrupted the fault current 37.50 ms after the trip.",
+     ["breaker.interrupt_ms", "breaker.52a_open_after_trip_ms"], False),
+    ("The fault ended when the breaker interrupted the current 37.50 ms after the trip, which opened the 52A contact.",
+     ["breaker.52a_open_after_trip_ms"], False),
+    ("Breaker interrupted the fault current 41.67 ms after the trip.", ["breaker.interrupt_ms"], True),
+    ("The 52A contact opened 37.50 ms after the trip, and the breaker interrupted the current 41.67 ms after it.",
+     ["breaker.52a_open_after_trip_ms", "breaker.interrupt_ms"], True),
+    ("The 52A contact opened 41.67 ms after the trip.", ["breaker.52a_open_after_trip_ms", "breaker.interrupt_ms"],
+     False),
+    ("The 52A contact opened 37.50 ms after the trip.", ["breaker.52a_open_after_trip_ms"], True),
+    # 37.50 ms is also when phase B cleared: fine when the clause names the pole.
+    ("Phase B cleared 37.50 ms after the trip.", ["breaker.52a_open_after_trip_ms"], True),
+])
+def test_52a_opening_is_not_the_interrupting_time(bg_sheet, text, cited, good):
+    assert ok(bg_sheet, text, cited)[0] is good
+
+
+@pytest.mark.parametrize("text, cited, good", [
+    # bg_sheet: operated at 603.13 ms (36.19 cycles), expected 605.40 ms, deviation -2.28 ms.
+    ("The relay operated 2.28 ms earlier than expected.", ["assessment.deviation_ms"], True),
+    ("The relay operated 2.28 ms faster than its settings predict.", ["assessment.deviation_ms"], True),
+    ("Relay operated 603.13 ms after fault inception, 36.19 cycles earlier than expected.",
+     ["relay.operate_ms", "expected.operate_ms", "relay.operate_cycles"], False),
+    ("The relay operated 605.40 ms later than expected.", ["expected.operate_ms"], False),
+    # The difference written next to the expected time is checked by the comparison rule instead.
+    ("The relay operated 603.13 ms after inception, earlier than the expected 605.40 ms.",
+     ["relay.operate_ms", "expected.operate_ms"], True),
+])
+def test_a_difference_from_the_expected_time_must_be_the_deviation(bg_sheet, text, cited, good):
+    assert ok(bg_sheet, text, cited)[0] is good
+
+
+@pytest.mark.parametrize("text, good", [
+    # abc_sheet: the current was interrupted by other breakers while the local 52A stayed closed.
+    ("The fault current ended when the local 52A breaker stayed closed, interrupting the current.", False),
+    ("The local breaker interrupted the fault current.", False),
+    ("The breaker cleared the fault.", False),
+    ("The fault was cleared by other breakers while the local breaker stayed closed.", True),
+    ("The local breaker did not interrupt the current.", True),
+    ("The breaker never cleared the fault; other breakers interrupted the current.", True),
+    ("Breaker verdict: not applicable.", True),
+])
+def test_local_breaker_claims_follow_the_end_cause(abc_sheet, text, good):
+    assert ok(abc_sheet, text, ["fault.end_cause"])[0] is good
+
+
+@pytest.mark.parametrize("text, good", [
+    # bg_sheet: the local breaker interrupted the current.
+    ("The fault was cleared by other breakers.", False),
+    ("The fault self-cleared before any local trip.", False),
+    ("The current returned to load before the breaker opened.", False),
+    ("The local breaker interrupted the current.", True),
+    ("The fault was not cleared by other breakers.", True),
+])
+def test_other_breakers_claims_follow_the_end_cause(bg_sheet, text, good):
+    assert ok(bg_sheet, text, ["fault.end_cause"])[0] is good
+
+
+def test_a_breaker_verb_is_not_a_relay_verdict(cag_slow_sheet):
+    sheet = cag_slow_sheet  # relay slower than expected, breaker normal
+    assert ok(sheet, "The relay tripped, and the breaker performed normally.", ["assessment.breaker"])[0]
+    assert not ok(sheet, "The relay performed normally.", ["assessment.relay"])[0]
+    assert not ok(sheet, "The relay tripped and performed as expected.", ["assessment.relay"])[0]
+
+
+@pytest.mark.parametrize("text, good", [
+    # bg_sheet: the fault began 3.56 ms before the trigger (fault.inception_from_trigger_ms = -3.56).
+    ("Fault detected at -3.56 ms, fault type is B-phase-to-ground.", True),
+    ("The fault started at -3.56 ms.", True),
+    ("Fault detected at -3.57 ms.", False),  # not the core's value
+    ("Fault detected at -2.28 ms.", False),  # that is the deviation
+    ("Fault detected at 3.56 ms.", False),  # unsigned: from what?
+    ("Fault detected at -3.56 ms before the trigger.", False),  # double negative
+    ("The relay tripped at -3.56 ms.", False),  # not a start time
+])
+def test_a_negative_start_time_is_relative_to_the_trigger(bg_sheet, text, good):
+    assert ok(bg_sheet, text, ["fault.detected", "fault.type"])[0] is good

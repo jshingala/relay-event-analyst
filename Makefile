@@ -6,8 +6,9 @@ RUN     := PYTHONPATH=python $(PY) -m
 EVENTS  ?= 1000
 SEED    ?= 7
 MODEL   ?= llama3.2:3b
+NARR    ?= eval/narration-x86
 
-.PHONY: all core test test-core test-py synth demo-data eval eval-narrate real demo doctor docker clean help
+.PHONY: all core test test-core test-py synth demo-data eval eval-narrate audit real demo doctor docker clean help
 
 all: core
 
@@ -16,7 +17,8 @@ help:
 	@echo "make test          C++ unit tests + Python tests"
 	@echo "make synth         generate $(EVENTS) labeled synthetic events (seed $(SEED)) into data/synth"
 	@echo "make eval          score the core on data/synth, red-team the validator -> eval/results/RESULTS.md"
-	@echo "make eval-narrate  also narrate 20 events with the local model ($(MODEL))"
+	@echo "make eval-narrate  also narrate 20 events with the local model ($(MODEL)); RESUME=1 continues"
+	@echo "make audit         score the validator against the hand labels in $(NARR)/audit.json"
 	@echo "make real          SEL webinar events vs. the relays' own summaries (downloads once)"
 	@echo "make demo          the 60-second offline demo (scripts/demo.sh)"
 	@echo "make docker        build the container image"
@@ -43,7 +45,11 @@ eval: core
 	$(RUN) rea.evaluation.run --data data/synth --out eval/results
 
 eval-narrate: core
-	$(RUN) rea.evaluation.run --data data/synth --out eval/narration --limit 20 --narrate --narrate-limit 20 --model $(MODEL)
+	$(RUN) rea.evaluation.run --data data/synth --out eval/narration --limit 20 --narrate --narrate-limit 20 --model $(MODEL) \
+	  $(if $(RESUME),--resume)
+
+audit:
+	$(RUN) rea.evaluation.audit $(NARR) --write
 
 real: core
 	$(RUN) rea.evaluation.real_events $(if $(wildcard data/real/sel_webinar_2020),,--fetch)

@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_utc": "2026-10-09 21:28 UTC",
-    "host": "x86_64 Linux, 2 CPUs",
+    "generated_utc": "2026-10-10 03:34 UTC",
+    "host": "x86_64 Linux, 4 CPUs",
     "data": "data/synth",
     "seed": 7,
     "filter": "cosine",
-    "wall_s": 22.43
+    "wall_s": 25.72
   },
   "core": {
     "n_events": 1000,
@@ -60,9 +60,9 @@
     },
     "core_wall_ms": {
       "n": 1000,
-      "median": 2.6768740008265013,
-      "p95": 4.909684999802266,
-      "max": 10.365475000071456
+      "median": 3.485671999897022,
+      "p95": 6.53220499998497,
+      "max": 12.972604999959003
     },
     "confusion": {
       "CA": {
@@ -199,6 +199,11 @@
     "clean_sentences": 7851,
     "clean_rejected": 0,
     "by_kind": {
+      "52A opening as the interrupting time": {
+        "injected": 681,
+        "caught": 681,
+        "rate": 1.0
+      },
       "flipped comparison": {
         "injected": 895,
         "caught": 895,
@@ -224,6 +229,11 @@
         "caught": 1392,
         "rate": 1.0
       },
+      "operate time as the deviation": {
+        "injected": 695,
+        "caught": 695,
+        "rate": 1.0
+      },
       "spelled-out number": {
         "injected": 6952,
         "caught": 6952,
@@ -244,6 +254,11 @@
         "caught": 6952,
         "rate": 1.0
       },
+      "wrong end cause": {
+        "injected": 1000,
+        "caught": 1000,
+        "rate": 1.0
+      },
       "wrong fault type": {
         "injected": 1000,
         "caught": 1000,
@@ -255,8 +270,8 @@
         "rate": 1.0
       }
     },
-    "injected": 47564,
-    "caught": 47107,
+    "injected": 49940,
+    "caught": 49483,
     "misses": [
       {
         "id": "ev0001",

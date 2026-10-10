@@ -60,17 +60,19 @@ and breaker problems, 8/16/32 samples per cycle, measurement noise, frequency of
 | Trip time error | max 2.08 ms |
 | Expected operate time vs closed form | median 0.65 cycles, max 1.05 cycles |
 | Fault current magnitude error | p95 1.25%, max 4.05% |
-| Core time per event | median 2.7 ms including process start |
+| Core time per event | median 3.5 ms including process start (4-CPU x86) |
 
 A second set (seed 2026) gives 99.9% fault type and the same 100% on verdicts, and a fresh 200-event set built
 from the packaged zip (seed 11) gives 99.5% fault type (one BG read as BCG) and 100% on verdicts. Every miss in
 all three sets is a record that starts after the fault began, which is the documented hard case.
 
 **Validator red team**: the correct template narrative of each of the 1,000 events was copied and one
-error injected per copy: 47,564 errors of 11 kinds, 99.0% caught, and 0 of 7,851 correct sentences
-rejected. Every kind is caught 100% of the time except one: a number swapped for the value of another
-fact of the same kind passes 0.6% of the time when the sentence cites its facts and 6.0% when it does
-not. That is why the model must cite.
+error injected per copy: 49,940 errors of 14 kinds, 99.1% caught, and 0 of 7,851 correct sentences
+rejected. Three kinds copy errors the hand audit found the model making (the 52A opening time as the
+interrupting time, the operate time as the deviation, the wrong breaker ending the fault). Every kind
+is caught 100% of the time except one: a number swapped for the value of another fact of the same
+kind passes 0.6% of the time when the sentence cites its facts and 6.0% when it does not. That is
+why the model must cite.
 
 **Real events (SEL's webinar files)**: rea-core's fault type matches the relay's own event type on both
 fault records (SEL-351R: CA; SEL-311L: CA). For the SEL-311L it adds the rotation mismatch and the late
@@ -83,7 +85,9 @@ Read by hand, 15 were wrong; the validator removed 9 of them. It also removed 10
 9 of which give the fault inception relative to the trigger without naming the trigger. The 6 wrong
 sentences it kept quote the 52A opening time as the interrupting time, quote the operate time in
 cycles as the deviation from the expected time, or misstate what the direction or a non-trip means.
-Details and every wrong sentence: [eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
+These counts are for the validator at the time of the run; checks for the first two patterns and
+for the trigger-relative times were added afterwards. Details and every wrong sentence:
+[eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
 
 **Jetson**: `scripts/bench_jetson.sh` measures seconds per event and board power with `tegrastats`
 (idle baseline, then N narrated events, joules per event). Not measured yet; numbers go here when

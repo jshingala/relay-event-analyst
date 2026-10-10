@@ -27,6 +27,10 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
      what the fact measures (a breaker time next to "breaker", a phase-B current next to "phase B").
    * A cited value quoted twice while another cited value of the same kind is never quoted is
      rejected.
+   * A negative time written right after "detected / began / started / occurred at" ("Fault
+     detected at -3.07 ms") binds to `fault.inception_from_trigger_ms` when it equals it: a start
+     time before zero only exists on the trigger's time axis. An unsigned value stays ambiguous
+     (from the trigger or from the first sample?) and needs a citation or the word "trigger".
 6. **Spelled-out quantities** ("three cycles") are rejected because they cannot be checked.
 
 `--lenient` keeps steps 1-4 and 6 and drops the binding.
@@ -40,19 +44,37 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
 * **Direction.** The opposite direction word. "Forward threshold" and similar threshold or element
   names are not claims.
 * **Relay.** "Did not trip" when the trip output asserted, or "tripped" when it did not. "Operated as
-  expected" when the verdict says otherwise. "Misoperation" when the verdict is as expected.
+  expected" when the verdict says otherwise (but "the relay tripped, and the breaker performed
+  normally" is about the breaker). "Misoperation" when the verdict is as expected.
   "Slower/faster than expected" with the wrong sign of the deviation.
 * **Breaker.** "Slow" when the breaker verdict is normal, or "normal" when it is slow.
+* **Who ended the fault current.** When `fault.end_cause` says other breakers interrupted it, or
+  that it returned to load before any local trip, a sentence in which the local breaker interrupts
+  or clears the current is rejected ("the local 52A breaker stayed closed, interrupting the
+  current"). When the local breaker interrupted it, crediting other breakers, self-clearing or a
+  return to load is rejected. Negated statements ("did not interrupt") are left alone.
 * **Comparisons.** "13.02 ms, faster than the expected 9.37 ms" is rejected because the numbers say
   otherwise. The same goes for slower, longer, higher, lower, below, above and exceeds, whenever both
   numbers sit in the sentence. Comparing quantities of different kinds ("-1.09 ohms, which is less
   than the pickup of 3.35 amperes") is rejected. Only the relay has an expected time, so a breaker
   time or a fault duration "slower than expected" is rejected too.
+* **The difference from the expected time.** A number written directly before "later / earlier /
+  slower / faster than expected" (or "than its settings", "than the curve") is the deviation, so it
+  must equal `assessment.deviation_ms` in magnitude. "12.50 ms after inception, 0.75 cycles later
+  than expected" is rejected when 0.75 cycles is the operate time itself. "X ms, earlier than the
+  expected Y ms" is left to the comparison rule above.
 * **z2 against the thresholds.** "Below the forward threshold" or "above the reverse threshold" must
   agree with the measured z2 and the Z2F/Z2R settings.
 * **What a time is measured from.** Breaker times are measured from the trip, so "the breaker
   interrupted the current 37.50 ms after the fault inception" is rejected, and so is any "expected"
   breaker time (the core does not compute one).
+* **Which breaker time.** The 52A contact opening and the current interruption are different
+  times, both measured from the trip. A time in a clause about interrupting or clearing that is the
+  52A opening time is rejected ("the breaker interrupted the current 25.00 ms after the trip" when
+  25.00 ms is `breaker.52a_open_after_trip_ms` and the interruption took 30.21 ms), unless the same
+  value is also the interrupting time or the clearing time of a pole the clause names. The reverse
+  (the interrupting time given as the 52A opening) is rejected too. Clauses are split at commas,
+  semicolons, brackets and "and / but / while / which / when".
 * **Signs in words.** Calling a positive value negative, or the reverse, is rejected.
   "Negative-sequence" is not a sign word. "-3.74 ms before the trigger" is a double negative and is
   rejected.
@@ -77,6 +99,7 @@ For each event the template narrative (correct by construction) is copied, and o
 injected per copy: wrong digit, wrong unit, invented number, spelled-out number, wrong fault type,
 flipped direction, flipped verdict, flipped comparison ("below" <-> "above" the threshold), a
 number moved to the wrong subject, the value of a different fact (with the original citations),
-and the same without citations. On 1,000 events: 47,564 injected errors, 99.0% caught, and 0 of
-7,851 correct sentences rejected. Every kind is caught 100% of the time except the value of a
+the same without citations, and three errors copied from the hand audit (the 52A opening time as
+the interrupting time, the operate time as the deviation, the wrong breaker ending the fault). On
+1,000 events: 49,940 injected errors, 99.1% caught, and 0 of 7,851 correct sentences rejected. Every kind is caught 100% of the time except the value of a
 different fact (99.4% with citations, 94.0% without). Details are in `eval/results/RESULTS.md`.
