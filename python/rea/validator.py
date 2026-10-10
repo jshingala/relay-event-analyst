@@ -608,13 +608,21 @@ def _deviation_problems(text: str, claims_at: list[tuple[int, int, Claim]], shee
 _LOCAL_INTERRUPT = re.compile(r"(?<!other )(?<!another )(?<!remote )\bbreaker\b(?!s)[^.;]{0,40}?"
                               r"\b(interrupt\w*|clear(?:ed|ing|s)?|extinguish\w*)\b", re.I)
 _NEGATED = re.compile(r"\b(?:not|never|no|without|failed)\b|n't\b", re.I)
+_OTHER_CLEARED = re.compile(r"\b(?:other|another|remote|adjacent|upstream)\s+breakers?\b|\bself[- ]clear\w*|"
+                            r"\bbefore any (?:local )?trip\b|\bcleared by other protection\b|"
+                            r"\bwithout a local interruption\b|\breturned to (?:the )?load\b", re.I)
 
 
 def _end_cause_problems(text: str, sheet: FactSheet) -> list[str]:
     """Who ended the fault current must agree with fault.end_cause: when other breakers
     (or nothing local) ended it, the local breaker did not interrupt it."""
     cause = sheet.value("fault.end_cause")
-    if not isinstance(cause, str) or cause.startswith("local breaker"):
+    if not isinstance(cause, str):
+        return []
+    if cause.startswith("local breaker"):
+        m = _OTHER_CLEARED.search(text)
+        if m and not _NEGATED.search(clause_around(text, m.start(), m.end())):
+            return [f"says '{m.group(0)}', but the core found the local breaker interrupted the current"]
         return []
     for m in _LOCAL_INTERRUPT.finditer(text):
         verb_clause = clause_around(text, m.start(1), m.end(1))

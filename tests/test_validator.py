@@ -337,3 +337,15 @@ def test_a_difference_from_the_expected_time_must_be_the_deviation(bg_sheet, tex
 ])
 def test_local_breaker_claims_follow_the_end_cause(abc_sheet, text, good):
     assert ok(abc_sheet, text, ["fault.end_cause"])[0] is good
+
+
+@pytest.mark.parametrize("text, good", [
+    # bg_sheet: the local breaker interrupted the current.
+    ("The fault was cleared by other breakers.", False),
+    ("The fault self-cleared before any local trip.", False),
+    ("The current returned to load before the breaker opened.", False),
+    ("The local breaker interrupted the current.", True),
+    ("The fault was not cleared by other breakers.", True),
+])
+def test_other_breakers_claims_follow_the_end_cause(bg_sheet, text, good):
+    assert ok(bg_sheet, text, ["fault.end_cause"])[0] is good
