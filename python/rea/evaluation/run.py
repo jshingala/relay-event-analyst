@@ -3,6 +3,11 @@
     rea-eval --data data/synth                     # core only
     rea-eval --data data/synth --narrate --limit 20   # plus local-LLM narration stats
     rea-eval ... --power-log logs/tegrastats.log    # attach Jetson power numbers
+    rea-eval ... --narrate --resume                 # continue an interrupted narration run
+
+Narration writes each event to <out>/narration.partial.jsonl as soon as it is done;
+--resume skips the events already there. The partial file is removed once the final
+narration.jsonl, summary.json and RESULTS.md are written.
 
 The validator red team (injected errors, no model needed) runs by default.
 """
@@ -173,6 +178,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--power-log", type=Path, default=None, help="tegrastats log captured during this run")
     ap.add_argument("--power-interval-ms", type=float, default=1000.0, help="tegrastats --interval used")
     ap.add_argument("--no-redteam", action="store_true", help="skip the validator red team")
+    ap.add_argument("--resume", action="store_true",
+                    help="continue an interrupted --narrate run from <out>/narration.partial.jsonl")
     args = ap.parse_args(argv)
 
     find_core(args.core)  # fail early with a clear message
@@ -188,16 +195,18 @@ def main(argv: list[str] | None = None) -> int:
 
     narr = None
     if args.narrate:
-        from .narration import evaluate_narration
+        from .narration import PARTIAL, evaluate_narration
 
-        narr = evaluate_narration(args, sheets, list(sheets)[: args.narrate_limit])
+        narr = evaluate_narration(args, sheets, list(sheets)[: args.narrate_limit],
+                                  partial=args.out / PARTIAL, resume=args.resume)
     t_end = time.time()
 
     power = None
     if args.power_log:
         from .power import summarize_power
 
-        n_power = narr["events"] if narr else len(scores)
+        # The power log covers this process only, so a resumed run divides by the events it narrated.
+        n_power = narr["events_this_run"] if narr else len(scores)
         power = summarize_power(args.power_log, n_events=n_power, interval_ms=args.power_interval_ms)
 
     manifest = json.loads((args.data / "manifest.json").read_text())
@@ -222,6 +231,10 @@ def main(argv: list[str] | None = None) -> int:
         (args.out / "narration.jsonl").write_text("\n".join(json.dumps(e) for e in narr_events) + "\n")
     report = render_markdown(summary, meta, narr, power, redteam)
     (args.out / "RESULTS.md").write_text(report)
+    if narr is not None:
+        from .narration import PARTIAL
+
+        (args.out / PARTIAL).unlink(missing_ok=True)
     print(report)
     return 0 if summary.n_errors == 0 else 1
 

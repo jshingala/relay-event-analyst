@@ -1,0 +1,816 @@
+[
+ {
+  "id": "ev0000",
+  "text": "Fault detected at -3.07 ms, fault type is C-A phase-to-phase.",
+  "label": "ok",
+  "note": "-3.07 ms is the fault inception relative to the record trigger. The sentence gives no reference, so it is vague, but nothing in the fact sheet contradicts it."
+ },
+ {
+  "id": "ev0000",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0000",
+  "text": "Maximum phase fault current is 34.89 A (secondary RMS) and 8373 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0000",
+  "text": "Relay operated 487.50 ms after fault detection, which is faster than expected.",
+  "label": "ok",
+  "note": "Inception to trip is 487.50 ms; the verdict is faster than expected."
+ },
+ {
+  "id": "ev0000",
+  "text": "Breaker interrupted the fault current 30.73 ms after the relay operated.",
+  "label": "ok",
+  "note": "Interrupting time is measured from the trip."
+ },
+ {
+  "id": "ev0000",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0000",
+  "text": "No ground involvement.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0000",
+  "text": "No residual current detected.",
+  "label": "ok",
+  "note": "3I0 is 0.00 A."
+ },
+ {
+  "id": "ev0001",
+  "text": "Fault detected at -3.74 ms, fault type is BC phase-to-phase.",
+  "label": "ok",
+  "note": "-3.74 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0001",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0001",
+  "text": "Maximum phase fault current is 15.63 A (secondary RMS) and 3750 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0001",
+  "text": "Relay operated 12.50 ms after fault inception, which is 2.08 ms later than expected.",
+  "label": "ok",
+  "note": "Operate 12.50 ms, expected 10.42 ms, deviation +2.08 ms."
+ },
+ {
+  "id": "ev0001",
+  "text": "Relay performed as expected, but operated later than expected.",
+  "label": "ok",
+  "note": "Reads as a contradiction, but both halves are true: the verdict is as expected (within the 25.52 ms tolerance) and the relay was 2.08 ms later than the expected time."
+ },
+ {
+  "id": "ev0001",
+  "text": "Breaker interrupted the fault current 25.00 ms after the trip.",
+  "label": "wrong",
+  "note": "25.00 ms is when the 52A contact opened (breaker.52a_open_after_trip_ms); the current was interrupted 29.17 ms after the trip (breaker.interrupt_ms)."
+ },
+ {
+  "id": "ev0001",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0001",
+  "text": "Fault duration is 41.67 ms and 2.50 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0002",
+  "text": "Fault detected at -5.30 ms, fault type is three-phase ABC.",
+  "label": "ok",
+  "note": "-5.30 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0002",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0002",
+  "text": "Maximum phase fault current is 5831 A (primary RMS) and 24.30 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0002",
+  "text": "Relay operated 13.02 ms after fault detection, which is 3.65 ms later than expected.",
+  "label": "ok",
+  "note": "Operate 13.02 ms, expected 9.37 ms, deviation +3.65 ms."
+ },
+ {
+  "id": "ev0002",
+  "text": "Relay performed as expected, but operated later than expected.",
+  "label": "ok",
+  "note": "Both halves are true: within the 25.47 ms tolerance, and 3.65 ms later than the expected time."
+ },
+ {
+  "id": "ev0002",
+  "text": "Breaker interrupted the fault current 32.81 ms after the trip, and the first pole to clear was A.",
+  "label": "ok",
+  "note": "Interrupting time 32.81 ms from the trip; phase A cleared first."
+ },
+ {
+  "id": "ev0002",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0002",
+  "text": "Fault duration is 45.83 ms, which is 2.75 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0003",
+  "text": "Fault detected at -0.45 ms, fault type is three-phase ABC.",
+  "label": "ok",
+  "note": "-0.45 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0003",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0003",
+  "text": "Maximum phase fault current is 4056 A (primary RMS) and 16.90 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0003",
+  "text": "Relay operated 16.15 ms after fault detection, which is 3.65 ms later than expected.",
+  "label": "ok",
+  "note": "Operate 16.15 ms, expected 12.50 ms, deviation +3.65 ms."
+ },
+ {
+  "id": "ev0003",
+  "text": "Relay performed as expected, but operated later than expected.",
+  "label": "ok",
+  "note": "Both halves are true: within the 25.62 ms tolerance, and 3.65 ms later than the expected time."
+ },
+ {
+  "id": "ev0003",
+  "text": "Breaker interrupted the fault current 30.21 ms after the trip.",
+  "label": "wrong",
+  "note": "30.21 ms is when the 52A contact opened (breaker.52a_open_after_trip_ms); the current was interrupted 36.46 ms after the trip (breaker.interrupt_ms)."
+ },
+ {
+  "id": "ev0003",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0003",
+  "text": "Fault duration is 52.60 ms and 3.16 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0004",
+  "text": "Fault detected at -5.76 ms, fault type is A-B phase-to-phase.",
+  "label": "ok",
+  "note": "-5.76 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0004",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0004",
+  "text": "Maximum phase fault current is 41.13 A (secondary RMS) and 9872 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0004",
+  "text": "Relay operated 15.62 ms after fault detection, which is 2.12 ms later than expected.",
+  "label": "wrong",
+  "note": "The relay was 3.12 ms later than expected (15.62 ms against 12.50 ms), not 2.12 ms."
+ },
+ {
+  "id": "ev0004",
+  "text": "Relay performance verdict is operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0004",
+  "text": "Breaker interrupted the fault current 30.21 ms after the relay operated, which is 14.59 ms after the fault detection.",
+  "label": "wrong",
+  "note": "30.21 ms after the trip is right, but the current was interrupted 45.83 ms after the fault began (the fault duration), not 14.59 ms; 14.59 is 30.21 minus 15.62, which measures nothing."
+ },
+ {
+  "id": "ev0004",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0004",
+  "text": "Fault duration is 45.83 ms and 2.75 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0005",
+  "text": "Fault detected at -5.43 ms, fault type B-C-to-ground, and ground involved.",
+  "label": "ok",
+  "note": "-5.43 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0005",
+  "text": "Fault direction was forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0005",
+  "text": "Maximum phase fault current was 19.67 A (secondary RMS) and 4720 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0005",
+  "text": "Relay operated 12.50 ms after fault inception, 0.75 cycles later than expected.",
+  "label": "wrong",
+  "note": "0.75 cycles is the relay operate time itself (relay.operate_cycles), not how much later than expected it was; the deviation is 3.12 ms (12.50 ms against 9.37 ms expected)."
+ },
+ {
+  "id": "ev0005",
+  "text": "Relay performance verdict was operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0005",
+  "text": "Breaker interrupting time was 29.17 ms, and 52A contact opened after trip.",
+  "label": "ok",
+  "note": "Interrupting time 29.17 ms; the 52A contact did open after the trip."
+ },
+ {
+  "id": "ev0005",
+  "text": "Fault ended due to local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0005",
+  "text": "Fault duration was 41.67 ms and 2.50 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0006",
+  "text": "Fault detected at -2.60 ms, fault type is ABG, and fault inception is before the record trigger.",
+  "label": "ok",
+  "note": "Cites the inception relative to the trigger and says it is before the trigger."
+ },
+ {
+  "id": "ev0006",
+  "text": "The fault direction is forward, indicating the fault current is flowing towards the relay.",
+  "label": "wrong",
+  "note": "Forward means the fault is in front of the relay: fault current flows from the bus through the relay out toward the fault. Current flowing toward the relay from the line describes a reverse fault."
+ },
+ {
+  "id": "ev0006",
+  "text": "The maximum phase fault current is 4117 A (primary RMS) and 17.15 A (secondary RMS), with the largest current flowing in phase A.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0006",
+  "text": "The relay operated 858.33 ms after the fault inception, which is earlier than the expected operate time of 861.39 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0006",
+  "text": "The relay performed as expected, but with a deviation of -3.06 ms, indicating it operated earlier than expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0006",
+  "text": "The breaker interrupted the fault current 140.62 ms after the trip, and the first pole to clear was A.",
+  "label": "ok",
+  "note": "Interrupting time 140.62 ms from the trip; phase A first. (It does not say the breaker was slow, but nothing in it is false.)"
+ },
+ {
+  "id": "ev0006",
+  "text": "The fault ended due to the local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0006",
+  "text": "The fault duration was 998.96 ms, and the fault current was flowing in the forward direction.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "A fault of type CG (C-phase-to-ground) was detected at -5.84 ms relative to the record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "The fault occurred in the forward direction.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "The maximum phase fault current was 15.09 A (secondary RMS) and 3621 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "The relay did not operate within the expected time of 614.84 ms.",
+  "label": "ok",
+  "note": "The relay never tripped, so it did not operate within the expected 614.84 ms."
+ },
+ {
+  "id": "ev0007",
+  "text": "The relay performance verdict is failed to trip.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "The breaker performance verdict is not applicable.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0007",
+  "text": "The fault ended due to the current being interrupted by other breakers while the local 52A stayed closed.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0008",
+  "text": "Fault detected at -0.18 ms, fault type is A-B phase-to-phase.",
+  "label": "ok",
+  "note": "-0.18 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0008",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0008",
+  "text": "Maximum phase fault current is 9395 A (primary RMS) and 39.14 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0008",
+  "text": "Relay operated 720.83 ms after fault detection, which is 0.86 ms later than expected.",
+  "label": "wrong",
+  "note": "Minor: the core's deviation is 0.87 ms. 0.86 comes from subtracting the rounded times (720.83 - 719.97), so the stated value does not match the fact at the precision written."
+ },
+ {
+  "id": "ev0008",
+  "text": "Relay performance verdict is operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0008",
+  "text": "Breaker interrupted the fault current 37.50 ms after the relay operated.",
+  "label": "ok",
+  "note": "Interrupting time 37.50 ms, measured from the trip."
+ },
+ {
+  "id": "ev0008",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Fault detected at -0.25 ms, fault type is A-B phase-to-phase.",
+  "label": "ok",
+  "note": "-0.25 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0009",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Maximum phase fault current is 5898 A (primary RMS) and 24.57 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Relay operated 178.65 ms after fault inception, which is later than the expected 174.39 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Relay performance verdict is operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Breaker interrupted the fault current 29.69 ms after the trip, which is within normal time.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0009",
+  "text": "Fault duration is 208.33 ms and 12.50 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0010",
+  "text": "Fault detected at 0 ms, fault inception was -0.17 ms before the record trigger.",
+  "label": "wrong",
+  "note": "\"-0.17 ms before the record trigger\" is a double negative (the fault began 0.17 ms before the trigger), and the fault was not detected at 0 ms."
+ },
+ {
+  "id": "ev0010",
+  "text": "Fault direction was forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0010",
+  "text": "Maximum phase fault current was 8.65 A on the secondary side.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0010",
+  "text": "Relay operated 735.42 ms after fault inception, which is earlier than the expected 736.45 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0010",
+  "text": "Relay performance verdict was operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0010",
+  "text": "Breaker interrupted the fault current 28.13 ms after the trip.",
+  "label": "ok",
+  "note": "Interrupting time 28.13 ms, measured from the trip."
+ },
+ {
+  "id": "ev0010",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0011",
+  "text": "A three-phase fault was detected at -5.57 ms relative to the record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0011",
+  "text": "The fault occurred in a reverse direction.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0011",
+  "text": "The maximum phase fault current was 2069 A (primary RMS) and 8.62 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0011",
+  "text": "The relay did not trip as expected, despite the fault being in a reverse direction.",
+  "label": "wrong",
+  "note": "The relay correctly did not trip because the fault was reverse and its elements are forward-directional. \"Despite\" states the opposite relation."
+ },
+ {
+  "id": "ev0011",
+  "text": "The breaker did not interrupt the fault, as it was not triggered by a local trip.",
+  "label": "ok",
+  "note": "No local trip and the 52A stayed closed."
+ },
+ {
+  "id": "ev0011",
+  "text": "The fault ended due to the current returning to the load before any local trip.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0011",
+  "text": "The fault duration was 102.08 ms (inception to current removed) and 6.12 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "A fault of type CA (phase-to-phase) was detected at -1.89 ms relative to the record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The fault occurred in the forward direction.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The maximum phase fault current was 12.03 A (secondary RMS) and 2888 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The relay operated 775.00 ms after the fault inception, which is earlier than the expected 775.62 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The relay performed as expected, but the breaker failed to interrupt the fault current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The fault ended due to the current being interrupted by other breakers while the local 52A stayed closed.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0012",
+  "text": "The breaker did not interrupt the fault current within the expected time.",
+  "label": "ok",
+  "note": "The local breaker never interrupted the current, so it did not do so within any time; vague but true."
+ },
+ {
+  "id": "ev0013",
+  "text": "Fault detected at 14.58 ms after the record trigger.",
+  "label": "wrong",
+  "note": "The fault began 2.63 ms before the trigger; 14.58 ms is the relay operate time."
+ },
+ {
+  "id": "ev0013",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0013",
+  "text": "Maximum phase fault current is 30.52 A (secondary RMS) and 7324 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0013",
+  "text": "Relay operated 14.58 ms after the fault inception, which is 2.08 ms later than expected.",
+  "label": "ok",
+  "note": "Operate 14.58 ms, expected 12.50 ms, deviation +2.08 ms."
+ },
+ {
+  "id": "ev0013",
+  "text": "Relay performed as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0013",
+  "text": "Breaker interrupted the fault current 33.33 ms after the fault inception.",
+  "label": "wrong",
+  "note": "33.33 ms is measured from the trip, not from the fault inception (the fault lasted 47.92 ms)."
+ },
+ {
+  "id": "ev0013",
+  "text": "Breaker performed normally.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0013",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Fault detected at 0.48 ms after the record trigger.",
+  "label": "ok",
+  "note": "Inception is +0.48 ms relative to the trigger."
+ },
+ {
+  "id": "ev0014",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Maximum phase fault current is 4856 A (primary RMS) and 20.23 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Relay operated 1148.96 ms after the fault inception, which is earlier than the expected 1149.43 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Relay performance verdict is operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Breaker interrupting time is 34.37 ms, and the first pole to clear is C.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Fault ended due to the local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0014",
+  "text": "Fault duration is 1183.33 ms, and the fault duration in cycles is 71.00 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Fault detected at -0.87 ms, fault type B-C-to-ground, fault inception before record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Maximum phase fault current is 35.87 A (secondary RMS) and 8609 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Relay operated 149.48 ms after fault inception, faster than expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Breaker interrupted fault current 26.04 ms after relay operated, normal performance.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Fault ended due to local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Fault duration is 175.52 ms and 10.53 cycles.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0015",
+  "text": "Ground involved in the fault.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Fault detected at -1.74 ms, fault type AG, fault inception before record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Maximum phase fault current is 5373 A (primary RMS) and 22.39 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Relay operated 475.52 ms after fault inception, 28.53 cycles, but expected to operate 245.72 ms.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Relay performance verdict is slower than expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0016",
+  "text": "Breaker interrupting time is 28.12 ms, 1.69 cycles, and 52A contact opened 29.17 ms after trip.",
+  "label": "ok",
+  "note": "Interrupting time 28.12 ms and 52A opening 29.17 ms, each quoted with its own meaning."
+ },
+ {
+  "id": "ev0016",
+  "text": "Fault ended due to local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0017",
+  "text": "A fault of type C-A-to-ground was detected at -8.04 ms relative to the record trigger.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0017",
+  "text": "The fault occurred in a reverse direction.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0017",
+  "text": "The maximum phase fault current was 2449 A (primary RMS) and 10.20 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0017",
+  "text": "The relay operated in 14.58 ms, which is longer than the expected 0.87 cycles.",
+  "label": "wrong",
+  "note": "0.87 cycles is the relay's own operate time, not an expected time; no trip was expected for this reverse fault."
+ },
+ {
+  "id": "ev0017",
+  "text": "The relay tripped, and the breaker performed normally.",
+  "label": "ok",
+  "note": "Both claims are true: the relay tripped and the breaker verdict is normal. \"Performed normally\" is said of the breaker, not the relay. It leaves out that the trip was outside the directional zone (that verdict was added from the template), but states nothing false."
+ },
+ {
+  "id": "ev0017",
+  "text": "The fault ended due to the local breaker interrupting the current.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0017",
+  "text": "The fault duration was 42.71 ms, which is longer than the expected duration.",
+  "label": "wrong",
+  "note": "The core computes no expected fault duration, so \"longer than the expected duration\" has no basis."
+ },
+ {
+  "id": "ev0017",
+  "text": "The ground was involved in the fault.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0018",
+  "text": "Fault detected at -5.27 ms, fault type C-A-to-ground, and ground involved.",
+  "label": "ok",
+  "note": "-5.27 ms is the fault inception relative to the record trigger. No reference is given, so it is vague, but nothing contradicts it."
+ },
+ {
+  "id": "ev0018",
+  "text": "Fault direction was forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0018",
+  "text": "Maximum phase fault current was 13.04 A (secondary RMS) and 3129 A (primary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0018",
+  "text": "Relay operated 258.33 ms after fault inception, 15.50 cycles earlier than expected.",
+  "label": "wrong",
+  "note": "15.50 cycles is the relay operate time itself (relay.operate_cycles), not how much earlier than expected it was; the deviation is -1.01 ms."
+ },
+ {
+  "id": "ev0018",
+  "text": "Relay performance verdict was operated as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0018",
+  "text": "Breaker interrupted fault at 41.67 ms, with 2.50 cycles of interruption.",
+  "label": "ok",
+  "note": "41.67 ms (2.50 cycles) is the interrupting time from the trip; \"at 41.67 ms\" gives no reference, so vague but not contradicted."
+ },
+ {
+  "id": "ev0018",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0019",
+  "text": "Fault detected at 6.06 ms before the record trigger.",
+  "label": "ok",
+  "note": "Inception is -6.06 ms relative to the trigger, that is 6.06 ms before it."
+ },
+ {
+  "id": "ev0019",
+  "text": "Fault direction is forward.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0019",
+  "text": "Maximum phase fault current is 2935 A (primary RMS) and 12.23 A (secondary RMS).",
+  "label": "ok"
+ },
+ {
+  "id": "ev0019",
+  "text": "Relay operated 804.17 ms after fault detection, which is 0.92 ms later than expected.",
+  "label": "wrong",
+  "note": "Minor: the core's deviation is 0.91 ms. 0.92 comes from subtracting the rounded times (804.17 - 803.25), so the stated value does not match the fact at the precision written."
+ },
+ {
+  "id": "ev0019",
+  "text": "Relay performed as expected.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0019",
+  "text": "Breaker interrupted the fault current 41.67 ms after the relay operated.",
+  "label": "ok",
+  "note": "Interrupting time 41.67 ms, measured from the trip."
+ },
+ {
+  "id": "ev0019",
+  "text": "Breaker performed normally.",
+  "label": "ok"
+ },
+ {
+  "id": "ev0019",
+  "text": "Fault ended due to local breaker interruption.",
+  "label": "ok"
+ }
+]

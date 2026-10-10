@@ -13,12 +13,15 @@ Two parts:
 
 from __future__ import annotations
 
+import json
+import os
 import random
 import re
 import statistics
 import time
 from collections import Counter
 from dataclasses import dataclass
+from pathlib import Path
 
 from ..facts import FactSheet
 from ..narrator import ESSENTIAL_TOPICS, LLMNarrator, TemplateNarrator
@@ -60,10 +63,112 @@ def skipped_topics(sheet: FactSheet, delivered: list[str]) -> list[str]:
     return out
 
 
-def evaluate_narration(args, sheets: dict[str, FactSheet], ids: list[str]) -> dict:
-    """Narrate each event and summarize what the validator did."""
+PARTIAL = "narration.partial.jsonl"
+
+
+def load_partial(path: Path) -> dict[str, dict]:
+    """Per-event records of an interrupted run, by event id. A torn last line is ignored."""
+    done: dict[str, dict] = {}
+    if not path.is_file():
+        return done
+    for line in path.read_text().splitlines():
+        if not line.strip():
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue  # the process died while writing this line; the event is narrated again
+        if isinstance(rec, dict) and "id" in rec:
+            done[rec["id"]] = rec
+    return done
+
+
+def _event_record(eid: str, narr, dt: float) -> dict:
+    """Everything the summary needs about one narrated event."""
+    v = narr.validation
+    d = narr.delivered_validation
+    llm = narr.llm
+    return {
+        "id": eid, "seconds": round(dt, 2), "fallback": narr.fallback,
+        "sentences": len(v.checks),
+        "rejected": [{"text": c.text, "reasons": c.reasons, "notes": c.notes} for c in v.rejected],
+        "proposed": [{"text": t, "fact_ids": ids} for t, ids in narr.proposed],
+        "delivered": narr.sentences,
+        "filled_from_template": narr.filled,
+        "numbers_total": v.numbers_total,
+        "numbers_traced": sum(len(c.numbers) - len(c.unsupported) for c in v.checks),
+        "delivered_numbers": d.numbers_delivered,
+        "via_context": d.numbers_via_context,
+        "tokens_per_s": llm.tokens_per_s if llm else None,
+        "prompt_tokens": llm.prompt_tokens if llm else None,
+        "completion_tokens": llm.completion_tokens if llm else None,
+        "raw_output": narr.raw_output or None,
+    }
+
+
+def summarize_narration(records: list[dict]) -> dict:
+    """Narrator statistics computed from the per-event records alone, so a resumed run
+    counts every event exactly once. Events where the model was not reached stay out of
+    every rate."""
+    narrated = [r for r in records if not r.get("model_unavailable")]
+    reasons: Counter = Counter()
+    skipped: Counter = Counter()
+    for r in narrated:
+        for c in r["rejected"]:
+            for reason in c["reasons"]:
+                reasons[reason_kind(reason)] += 1
+        if not r["fallback"]:
+            skipped.update(r["filled_from_template"])
+    proposed = sum(r["sentences"] for r in narrated)
+    rejected = sum(len(r["rejected"]) for r in narrated)
+    model_numbers = sum(r["numbers_total"] for r in narrated)
+    traced = sum(r["numbers_traced"] for r in narrated)
+    secs = [r["seconds"] for r in narrated]
+    tps = [r["tokens_per_s"] for r in narrated if r.get("tokens_per_s")]
+    gen_tokens = [r["completion_tokens"] for r in narrated if r.get("completion_tokens")]
+    prompt_tokens = [r["prompt_tokens"] for r in narrated if r.get("prompt_tokens")]
+    return {
+        "events": len(narrated),
+        "model_unavailable": len(records) - len(narrated),
+        "sentences": proposed,
+        "rejected": rejected,
+        "rejected_rate": rejected / proposed if proposed else 0.0,
+        "reasons": dict(reasons.most_common()),
+        "model_numbers": model_numbers,
+        "model_numbers_traced_rate": traced / model_numbers if model_numbers else 1.0,
+        "delivered_numbers": sum(r["delivered_numbers"] for r in narrated),
+        "delivered_numbers_via_context": sum(r["via_context"] for r in narrated),
+        "fallbacks": sum(1 for r in narrated if r["fallback"]),
+        "model_skipped": dict(skipped.most_common()),
+        "sec_median": statistics.median(secs) if secs else 0.0,
+        "sec_max": max(secs) if secs else 0.0,
+        "tok_s_median": statistics.median(tps) if tps else 0.0,
+        "completion_tokens_median": statistics.median(gen_tokens) if gen_tokens else 0,
+        "prompt_tokens_median": statistics.median(prompt_tokens) if prompt_tokens else 0,
+    }
+
+
+def evaluate_narration(args, sheets: dict[str, FactSheet], ids: list[str], partial: Path | None = None,
+                       resume: bool = False) -> dict:
+    """Narrate each event and summarize what the validator did.
+
+    With ``partial``, each event's record is appended to that file as soon as the event is
+    done, so a crash or reboot loses at most the event in progress. With ``resume``, events
+    already in the file are not narrated again (except those where the model could not be
+    reached); otherwise the file is started afresh.
+    """
     from ..llm import make_client
     from ..rag import load_or_build, query_for
+
+    done: dict[str, dict] = {}
+    if partial is not None:
+        if resume:
+            done = {k: r for k, r in load_partial(partial).items() if k in ids and not r.get("model_unavailable")}
+            print(f"  resuming: {len(done)} of {len(ids)} events already narrated", flush=True)
+        partial.parent.mkdir(parents=True, exist_ok=True)
+        # Rewrite only the records being kept: a torn line or a model_unavailable record
+        # would otherwise be read twice.
+        partial.write_text("".join(json.dumps(done[k]) + "\n" for k in ids if k in done))
 
     backend = getattr(args, "backend", "ollama")
     model = getattr(args, "model", "llama3.2:3b")
@@ -77,89 +182,48 @@ def evaluate_narration(args, sheets: dict[str, FactSheet], ids: list[str]) -> di
     papers = getattr(args, "papers", None)
     index = load_or_build(papers) if papers is not None and papers.is_dir() else None
 
-    per_event = []
-    reasons: Counter = Counter()
-    secs, tps, gen_tokens, prompt_tokens = [], [], [], []
-    proposed = rejected = fallbacks = unavailable = 0
-    model_numbers = model_numbers_traced = via_context = delivered_numbers = 0
-    skipped: Counter = Counter()
-    for eid in ids:
-        sheet = sheets[eid]
-        t0 = time.perf_counter()
-        passages = index.search(query_for(sheet), k=3) if index is not None and sheet.value("fault.detected") else []
-        if isinstance(narrator, TemplateNarrator):
-            narr = narrator.narrate(sheet)
-        else:
-            narr = narrator.narrate(sheet, passages)
-        dt = time.perf_counter() - t0
-        if narr.fallback and narr.llm is None and not isinstance(narrator, TemplateNarrator):
-            # The model was not reached: the template was shown. Nothing here measures the
-            # model or the validator, so it is counted apart and left out of every rate.
-            unavailable += 1
-            per_event.append({"id": eid, "seconds": round(dt, 2), "model_unavailable": True,
-                              "reason": narr.fallback_reason, "delivered": narr.sentences})
-            print(f"  narrated {eid}: model unavailable ({narr.fallback_reason})", flush=True)
-            continue
-        v = narr.validation
-        proposed += len(v.checks)
-        rejected += len(v.rejected)
-        fallbacks += int(narr.fallback)
-        for c in v.rejected:
-            for r in c.reasons:
-                reasons[reason_kind(r)] += 1
-        model_numbers += v.numbers_total
-        model_numbers_traced += sum(len(c.numbers) - len(c.unsupported) for c in v.checks)
-        d = narr.delivered_validation
-        via_context += d.numbers_via_context
-        delivered_numbers += d.numbers_delivered
-        if not narr.fallback:
-            skipped.update(narr.filled)
-        secs.append(dt)
-        if narr.llm is not None:
-            if narr.llm.tokens_per_s:
-                tps.append(narr.llm.tokens_per_s)
-            if narr.llm.completion_tokens:
-                gen_tokens.append(narr.llm.completion_tokens)
-            if narr.llm.prompt_tokens:
-                prompt_tokens.append(narr.llm.prompt_tokens)
-        llm = narr.llm
-        per_event.append({
-            "id": eid, "seconds": round(dt, 2), "fallback": narr.fallback,
-            "rejected": [{"text": c.text, "reasons": c.reasons, "notes": c.notes} for c in v.rejected],
-            "proposed": [{"text": t, "fact_ids": ids} for t, ids in narr.proposed],
-            "delivered": narr.sentences,
-            "filled_from_template": narr.filled,
-            "tokens_per_s": llm.tokens_per_s if llm else None,
-            "prompt_tokens": llm.prompt_tokens if llm else None,
-            "completion_tokens": llm.completion_tokens if llm else None,
-            "raw_output": narr.raw_output or None,
-        })
-        print(f"  narrated {eid}: {len(v.kept)}/{len(v.checks)} kept, {dt:.1f} s"
-              + (" (fallback)" if narr.fallback else ""), flush=True)
+    records: dict[str, dict] = dict(done)
+    sink = partial.open("a", encoding="utf-8") if partial is not None else None
+    try:
+        for eid in ids:
+            if eid in done:
+                continue
+            sheet = sheets[eid]
+            t0 = time.perf_counter()
+            passages = index.search(query_for(sheet), k=3) if index is not None and sheet.value("fault.detected") else []
+            if isinstance(narrator, TemplateNarrator):
+                narr = narrator.narrate(sheet)
+            else:
+                narr = narrator.narrate(sheet, passages)
+            dt = time.perf_counter() - t0
+            if narr.fallback and narr.llm is None and not isinstance(narrator, TemplateNarrator):
+                # The model was not reached: the template was shown. Nothing here measures the
+                # model or the validator, so it is counted apart and left out of every rate.
+                rec = {"id": eid, "seconds": round(dt, 2), "model_unavailable": True,
+                       "reason": narr.fallback_reason, "delivered": narr.sentences}
+                print(f"  narrated {eid}: model unavailable ({narr.fallback_reason})", flush=True)
+            else:
+                rec = _event_record(eid, narr, dt)
+                v = narr.validation
+                print(f"  narrated {eid}: {len(v.kept)}/{len(v.checks)} kept, {dt:.1f} s"
+                      + (" (fallback)" if narr.fallback else ""), flush=True)
+            records[eid] = rec
+            if sink is not None:
+                sink.write(json.dumps(rec) + "\n")
+                sink.flush()
+                os.fsync(sink.fileno())
+    finally:
+        if sink is not None:
+            sink.close()
 
-    n = len(ids) - unavailable
+    per_event = [records[k] for k in ids if k in records]
     return {
         "backend": backend,
         "model": model if backend != "template" else "-",
         "server": server,
         "retrieval": f"{len(index.passages)} passages from {len(index.files)} files" if index is not None else "off",
-        "events": n,
-        "model_unavailable": unavailable,
-        "sentences": proposed,
-        "rejected": rejected,
-        "rejected_rate": rejected / proposed if proposed else 0.0,
-        "reasons": dict(reasons.most_common()),
-        "model_numbers": model_numbers,
-        "model_numbers_traced_rate": model_numbers_traced / model_numbers if model_numbers else 1.0,
-        "delivered_numbers": delivered_numbers,
-        "delivered_numbers_via_context": via_context,
-        "fallbacks": fallbacks,
-        "model_skipped": dict(skipped.most_common()),
-        "sec_median": statistics.median(secs) if secs else 0.0,
-        "sec_max": max(secs) if secs else 0.0,
-        "tok_s_median": statistics.median(tps) if tps else 0.0,
-        "completion_tokens_median": statistics.median(gen_tokens) if gen_tokens else 0,
-        "prompt_tokens_median": statistics.median(prompt_tokens) if prompt_tokens else 0,
+        **summarize_narration(per_event),
+        "events_this_run": sum(1 for k in ids if k not in done and not records[k].get("model_unavailable")),
         "per_event": per_event,
     }
 

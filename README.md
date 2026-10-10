@@ -77,11 +77,13 @@ fault records (SEL-351R: CA; SEL-311L: CA). For the SEL-311L it adds the rotatio
 trip described above. The three SEL-710 motor records are motor starts and trips, which are outside
 the scope of a fault analyzer; see [REAL_EVENTS.md](eval/real/REAL_EVENTS.md).
 
-**Local LLM** (Llama 3.2 3B Instruct Q4_K_M in Ollama 0.40.2, CPU only, 2-vCPU x86, retrieval over the
-6 SEL papers): 20 synthetic events, about 106 s per event at 3.7 tokens/s. The model wrote 149
-sentences for the 19 events it reached. Read by hand, 13 were wrong; the final validator removed 11
-of them and no correct sentence. The 2 it kept quote one breaker time for another, or garble what
-ended the fault. Details and every wrong sentence: [eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
+**Local LLM** (Llama 3.2 3B Instruct Q4_K_M in Ollama 0.40.2, CPU only, 4-vCPU x86, no retrieval):
+20 synthetic events, median 45.1 s per event at 8.6 tokens/s. The model proposed 153 sentences.
+Read by hand, 15 were wrong; the validator removed 9 of them. It also removed 10 correct sentences,
+9 of which give the fault inception relative to the trigger without naming the trigger. The 6 wrong
+sentences it kept quote the 52A opening time as the interrupting time, quote the operate time in
+cycles as the deviation from the expected time, or misstate what the direction or a non-trip means.
+Details and every wrong sentence: [eval/narration-x86/RESULTS.md](eval/narration-x86/RESULTS.md).
 
 **Jetson**: `scripts/bench_jetson.sh` measures seconds per event and board power with `tegrastats`
 (idle baseline, then N narrated events, joules per event). Not measured yet; numbers go here when
