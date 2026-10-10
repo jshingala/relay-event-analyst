@@ -7,8 +7,11 @@ Two parts:
 * ``redteam_validator``: no model needed. Take the template narrative of each
   event (correct by construction), inject one known error per copy (wrong digit,
   wrong unit, number moved to the wrong subject, invented number, spelled-out
-  number, wrong fault type, flipped direction, flipped verdict) and measure how
-  many the validator catches, and how many correct sentences it wrongly rejects.
+  number, wrong fault type, flipped direction, flipped verdict, and three errors
+  the hand audit found the model making: the 52A opening time as the interrupting
+  time, the operate time as the deviation, the wrong breaker ending the fault) and
+  measure how many the validator catches, and how many correct sentences it
+  wrongly rejects.
 """
 
 from __future__ import annotations
