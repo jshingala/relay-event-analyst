@@ -3,6 +3,10 @@
 #
 #   scripts/bench_jetson.sh                 # 20 narrated events with llama3.2:3b
 #   N=50 MODEL=llama3.2:1b scripts/bench_jetson.sh
+#   OUT=eval/jetson-20261012-0930 RESUME=1 scripts/bench_jetson.sh   # continue an interrupted run
+#
+# On RESUME the power log covers only the events narrated after the restart, and the
+# energy per event is divided by those events.
 #
 # Writes eval/jetson-<date>/: environment.txt, RESULTS.md, summary.json,
 # narration.jsonl, tegrastats_idle.log, tegrastats_run.log, power_idle.json.
@@ -47,7 +51,7 @@ echo "== measured run: $N events, core + retrieval + narration + validation"
 scripts/tegrastats_log.sh start "$OUT/tegrastats_run.log" "$INTERVAL"
 trap 'scripts/tegrastats_log.sh stop >/dev/null' EXIT
 python3 -m rea.evaluation.run --data data/synth --out "$OUT" --limit "$N" \
-  --narrate --narrate-limit "$N" --model "$MODEL" \
+  --narrate --narrate-limit "$N" --model "$MODEL" ${RESUME:+--resume} \
   --power-log "$OUT/tegrastats_run.log" --power-interval-ms "$INTERVAL"
 
 echo "== idle baseline"

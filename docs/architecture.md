@@ -93,7 +93,11 @@ report names the file and page of each passage.
   problems: slow relay, wrong curve, slow breaker, breaker failure, trip for a reverse fault, failure
   to trip.
 * `rea-eval`: scores the core on the labeled set, runs the validator red team, and optionally
-  narrates N events with the local model and parses a tegrastats log.
+  narrates N events with the local model and parses a tegrastats log. Each narrated event is
+  appended to `<out>/narration.partial.jsonl` as soon as it is done, and the summary is computed
+  from those records, so `--resume` continues an interrupted run (a reboot, a killed runner)
+  without narrating finished events again. Events where the model could not be reached are
+  retried on resume.
 * `rea-real` (`python -m rea.evaluation.real_events`): SEL's webinar events, compared with the
   relay's own event summary.
 * `scripts/bench_jetson.sh`: environment capture, model warm-up, idle power baseline, a measured run

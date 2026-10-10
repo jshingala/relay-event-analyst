@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_utc": "2026-10-09 21:17 UTC",
-    "host": "x86_64 Linux",
+    "generated_utc": "2026-10-10 03:12 UTC",
+    "host": "x86_64 Linux, 4 CPUs",
     "data": "data/synth",
     "seed": 7,
     "filter": "cosine",
-    "wall_s": 2055.76
+    "wall_s": 915.32
   },
   "core": {
     "n_events": 20,
@@ -60,9 +60,9 @@
     },
     "core_wall_ms": {
       "n": 20,
-      "median": 2.5445984997531923,
-      "p95": 5.055724000158079,
-      "max": 5.368172000089544
+      "median": 3.4809820000418767,
+      "p95": 5.327867000005426,
+      "max": 7.1517249999715204
     },
     "confusion": {
       "CA": {
@@ -172,28 +172,34 @@
   "narrator": {
     "backend": "ollama",
     "model": "llama3.2:3b",
+    "server": "Ollama 0.40.2",
+    "retrieval": "off",
     "events": 20,
-    "sentences": 157,
-    "rejected": 9,
-    "rejected_rate": 0.05732484076433121,
+    "model_unavailable": 0,
+    "sentences": 153,
+    "rejected": 19,
+    "rejected_rate": 0.12418300653594772,
     "reasons": {
-      "number not produced by the core": 8,
-      "wrong direction": 1
+      "number not produced by the core": 14,
+      "other": 4,
+      "contradicts a verdict": 1
     },
-    "model_numbers": 189,
-    "model_numbers_traced_rate": 0.9576719576719577,
-    "delivered_numbers": 182,
-    "delivered_numbers_via_context": 1,
-    "fallbacks": 1,
+    "model_numbers": 137,
+    "model_numbers_traced_rate": 0.8978102189781022,
+    "delivered_numbers": 128,
+    "delivered_numbers_via_context": 0,
+    "fallbacks": 0,
     "model_skipped": {
-      "fault type": 9,
-      "relay operation": 2
+      "fault type": 13,
+      "relay operation": 1,
+      "relay verdict": 1
     },
-    "sec_median": 105.7841910899997,
-    "sec_max": 141.64045377900038,
-    "tok_s_median": 3.732857323383594,
-    "completion_tokens_median": 366,
-    "prompt_tokens_median": 1395
+    "sec_median": 45.125,
+    "sec_max": 63.63,
+    "tok_s_median": 8.558192829460605,
+    "completion_tokens_median": 294.5,
+    "prompt_tokens_median": 912.0,
+    "events_this_run": 20
   },
   "power": null,
   "validator_redteam": null
