@@ -67,10 +67,12 @@ from the packaged zip (seed 11) gives 99.5% fault type (one BG read as BCG) and 
 all three sets is a record that starts after the fault began, which is the documented hard case.
 
 **Validator red team**: the correct template narrative of each of the 1,000 events was copied and one
-error injected per copy: 47,564 errors of 11 kinds, 99.0% caught, and 0 of 7,851 correct sentences
-rejected. Every kind is caught 100% of the time except one: a number swapped for the value of another
-fact of the same kind passes 0.6% of the time when the sentence cites its facts and 6.0% when it does
-not. That is why the model must cite.
+error injected per copy: 49,940 errors of 14 kinds, 99.1% caught, and 0 of 7,851 correct sentences
+rejected. Three kinds copy errors the hand audit found the model making (the 52A opening time as the
+interrupting time, the operate time as the deviation, the wrong breaker ending the fault). Every kind
+is caught 100% of the time except one: a number swapped for the value of another fact of the same
+kind passes 0.6% of the time when the sentence cites its facts and 6.0% when it does not. That is
+why the model must cite.
 
 **Real events (SEL's webinar files)**: rea-core's fault type matches the relay's own event type on both
 fault records (SEL-351R: CA; SEL-311L: CA). For the SEL-311L it adds the rotation mismatch and the late
