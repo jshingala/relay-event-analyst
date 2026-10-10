@@ -53,6 +53,13 @@ Code: `python/rea/validator.py`. Tests: `tests/test_validator.py`. Red team:
 * **What a time is measured from.** Breaker times are measured from the trip, so "the breaker
   interrupted the current 37.50 ms after the fault inception" is rejected, and so is any "expected"
   breaker time (the core does not compute one).
+* **Which breaker time.** The 52A contact opening and the current interruption are different
+  times, both measured from the trip. A time in a clause about interrupting or clearing that is the
+  52A opening time is rejected ("the breaker interrupted the current 25.00 ms after the trip" when
+  25.00 ms is `breaker.52a_open_after_trip_ms` and the interruption took 30.21 ms), unless the same
+  value is also the interrupting time or the clearing time of a pole the clause names. The reverse
+  (the interrupting time given as the 52A opening) is rejected too. Clauses are split at commas,
+  semicolons, brackets and "and / but / while / which / when".
 * **Signs in words.** Calling a positive value negative, or the reverse, is rejected.
   "Negative-sequence" is not a sign word. "-3.74 ms before the trigger" is a double negative and is
   rejected.
